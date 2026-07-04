@@ -6,6 +6,53 @@ The format is based on **Keep a Changelog**, and the project follows **Semantic 
 
 ---
 
+## [0.3.0] - Sprint 03
+
+### Added
+
+#### Document Processing Pipeline
+
+- Added `document_loader.py` for loading PDF documents using LangChain `PyPDFDirectoryLoader`.
+- Added `text_splitter.py` for document chunking using `RecursiveCharacterTextSplitter`.
+- Added configurable chunk size and chunk overlap through centralized application settings.
+- Added `embedding_service.py` for centralized Hugging Face embedding model initialization.
+- Added support for the `sentence-transformers/all-mpnet-base-v2` embedding model.
+- Added `vector_store.py` for creating, saving, and loading FAISS vector databases.
+- Added `indexing_pipeline.py` to orchestrate the complete document indexing workflow.
+- Added persistent FAISS vector store generation (`index.faiss` and `index.pkl`).
+
+#### Integration
+
+- Implemented an end-to-end indexing workflow:
+
+  - PDF Loading
+  - Document Chunking
+  - Embedding Generation
+  - FAISS Vector Store Creation
+  - Vector Store Persistence
+
+- Successfully indexed project documents into a searchable FAISS vector database.
+
+#### Testing
+
+- Added `test_document_loader.py`.
+- Added `test_text_splitter.py`.
+- Added `test_embedding_service.py`.
+- Added `test_vector_store.py`.
+- Added `test_indexing_pipeline.py`.
+- Added `test_integration.py` for end-to-end pipeline verification.
+
+#### Documentation
+
+- Added Sprint 03 documentation.
+- Added Day 03 development log.
+- Updated backend technical documentation.
+- Updated project architecture documentation.
+- Documented the complete indexing pipeline workflow.
+- Added verification results for document loading, chunking, embedding generation, and vector indexing.
+
+---
+
 ## [0.2.0] - Sprint 02
 
 ### Added
@@ -46,6 +93,7 @@ The format is based on **Keep a Changelog**, and the project follows **Semantic 
 - Updated backend documentation.
 - Updated developer guide.
 - Updated Day 02 development log.
+- Documented the `uv` installation and PATH troubleshooting process for future project setup.
 
 ---
 
@@ -56,12 +104,12 @@ The format is based on **Keep a Changelog**, and the project follows **Semantic 
 #### Project Initialization
 
 - Created GitHub repository.
-- Cloned repository to the local development environment.
+- Cloned the repository to the local development environment.
 - Initialized the project using `uv`.
 - Configured the Conda development environment.
 - Added project dependencies using `uv`.
 - Created the initial project directory structure.
-- Added project documentation framework.
+- Added the project documentation framework.
 - Created project configuration files.
 - Added `.env` support.
 - Added `requirements.txt` for deployment compatibility.

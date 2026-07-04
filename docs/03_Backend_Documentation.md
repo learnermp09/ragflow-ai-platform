@@ -1,148 +1,311 @@
-# Configuration Management
+# Backend Technical Documentation
 
-## Overview
+  Field             Details
+  ----------------- ---------------------------------
+  **Project**       RAGFlow AI Platform
+  **Document**      Backend Technical Documentation
+  **Version**       0.3.0
+  **Updated**       04 July 2026
+  **Prepared By**   Mrityunjay P.
+  **Role**          AI Engineer
 
-The application uses a centralized configuration module to manage all configurable values.
+------------------------------------------------------------------------
 
-The configuration system is implemented using **Pydantic Settings**, allowing application settings to be loaded from environment variables or the local `.env` file.
+# 1. Overview
 
-This approach eliminates scattered configuration throughout the codebase and provides a single source of truth.
+This document describes the backend architecture implemented through
+Sprint 03. The backend provides a modular and maintainable foundation
+for a Retrieval-Augmented Generation (RAG) application using LangChain,
+Hugging Face, and FAISS.
 
----
+------------------------------------------------------------------------
 
-## Configuration Structure
+# 2. Backend Architecture
 
-The configuration module is organized into the following logical groups:
+    backend/
+└── app/
+    ├── __init__.py
+    │
+    ├── api/
+    │   └── __init__.py
+    │
+    ├── core/
+    │   ├── __init__.py      ← Yes
+    │   ├── config.py
+    │   ├── constants.py
+    │   ├── exception.py
+    │   ├── logger.py
+    │   └── prompts.py
+    │
+    ├── pipeline/
+    │   ├── __init__.py
+    │   └── indexing_pipeline.py
+    │
+    ├── services/
+    │   ├── __init__.py      ← Yes
+    │   ├── document_loader.py
+    │   ├── embedding_service.py
+    │   ├── text_splitter.py
+    │   └── vector_store.py
+    │
+    └── utils/
+        └── __init__.py
+------------------------------------------------------------------------
 
-- Project Settings
-- Hugging Face Settings
-- Embedding Settings
-- Document Settings
-- Vector Store Settings
-- LLM Settings
-- Logging Settings
+# 3. Core Modules
 
-These groups are exposed through the global `settings` object.
+## Configuration
 
----
-
-## Environment Variables
-
-Currently, the following environment variable is required:
-
-| Variable | Description |
-|----------|-------------|
-| `HUGGINGFACEHUB_API_TOKEN` | Hugging Face API access token |
-
-During local development, the value is loaded from the `.env` file.
-
-During production deployment, the value will be provided by Render through its Environment Variables configuration.
-
----
-
-## Benefits
-
-- Centralized configuration
-- Reduced code duplication
-- Improved maintainability
-- Consistent application behavior
-- Easier debugging
-- Production-ready deployment support
-
-# Backend Foundation
-
-## Overview
-
-Sprint 02 established the reusable backend infrastructure that will support all future development of the RAGFlow AI Platform.
-
-The implementation follows a modular architecture where each core responsibility is isolated into its own module.
-
----
-
-## Core Modules
-
-### Configuration Management
-
-File:
-
-```
-backend/app/core/config.py
-```
+`config.py`
 
 Responsibilities:
 
-- Load environment variables.
-- Manage project configuration.
-- Provide centralized application settings.
+-   Load environment variables
+-   Centralize project configuration
+-   Configure embedding model
+-   Configure document processing
+-   Configure vector store
+-   Configure logging
+-   Configure LLM
 
----
+------------------------------------------------------------------------
 
-### Application Constants
+## Constants
 
-File:
+`constants.py`
 
-```
-backend/app/core/constants.py
-```
+Provides application-wide constants such as:
 
-Responsibilities:
+-   Supported file types
+-   Default directories
+-   Log names
+-   Configuration values
 
-- Store immutable application values.
-- Centralize reusable constants.
-- Eliminate hardcoded values.
+------------------------------------------------------------------------
 
----
+## Logger
 
-### Logging
+`logger.py`
 
-File:
+Implements centralized logging.
 
-```
-backend/app/core/logger.py
-```
+Features:
 
-Responsibilities:
+-   Console logging
+-   File logging
+-   Timestamped messages
+-   Common logger shared across the project
 
-- Configure application logging.
-- Write logs to both console and file.
-- Provide a shared logger for all backend modules.
+------------------------------------------------------------------------
 
----
+## Exception
 
-### Exception Handling
+`exception.py`
 
-File:
-
-```
-backend/app/core/exception.py
-```
+Defines the custom `RAGFlowException` class.
 
 Responsibilities:
 
-- Standardize exception reporting.
-- Include source file and line number.
-- Improve debugging and maintainability.
+-   Standardized exception handling
+-   File name tracking
+-   Line number tracking
+-   Improved debugging
 
----
+------------------------------------------------------------------------
 
-### Prompt Management
+## Prompt Templates
 
-File:
+`prompts.py`
 
-```
-backend/app/core/prompts.py
-```
+Stores reusable LangChain prompt templates.
+
+------------------------------------------------------------------------
+
+# 4. Service Layer
+
+## Document Loader
+
+Loads PDF documents from the configured directory.
+
+Implementation:
+
+-   PyPDFDirectoryLoader
+
+Output:
+
+-   List of LangChain Document objects
+
+------------------------------------------------------------------------
+
+## Text Splitter
+
+Splits documents into chunks.
+
+Implementation:
+
+-   RecursiveCharacterTextSplitter
+
+Configuration:
+
+-   Chunk Size
+-   Chunk Overlap
+
+Output:
+
+-   Chunked documents
+
+------------------------------------------------------------------------
+
+## Embedding Service
+
+Creates the embedding model.
+
+Implementation:
+
+-   HuggingFaceEmbeddings
+
+Current Model:
+
+sentence-transformers/all-mpnet-base-v2
+
+------------------------------------------------------------------------
+
+## Vector Store
+
+Creates and manages FAISS indexes.
 
 Responsibilities:
 
-- Store reusable LangChain prompt templates.
-- Separate prompt engineering from application logic.
-- Simplify future prompt maintenance.
+-   Create vector store
+-   Save vector store
+-   Load vector store
 
----
+Generated Files:
 
-## Verification
+-   index.faiss
+-   index.pkl
 
-The backend foundation was validated using dedicated verification scripts for each module as well as an end-to-end infrastructure verification.
+------------------------------------------------------------------------
 
-This confirms that the backend foundation is stable and ready for implementation of the Retrieval-Augmented Generation pipeline in the next sprint.
+## Indexing Pipeline
+
+Coordinates the complete indexing workflow.
+
+Workflow:
+
+    PDF Documents
+          │
+          ▼
+    Document Loader
+          │
+          ▼
+    Text Splitter
+          │
+          ▼
+    Embedding Service
+          │
+          ▼
+    FAISS Vector Store
+          │
+          ▼
+    Save Index
+
+------------------------------------------------------------------------
+
+# 5. Testing Strategy
+
+Each module includes an independent verification script.
+
+Implemented tests:
+
+-   test_config.py
+-   test_constants.py
+-   test_logger.py
+-   test_exception.py
+-   test_prompts.py
+-   test_document_loader.py
+-   test_text_splitter.py
+-   test_embedding_service.py
+-   test_vector_store.py
+-   test_indexing_pipeline.py
+-   test_integration.py
+
+------------------------------------------------------------------------
+
+# 6. Current Pipeline Status
+
+  Component             Status
+  --------------------- ----------
+  Configuration         Complete
+  Constants             Complete
+  Logger                Complete
+  Exception             Complete
+  Prompt Templates      Complete
+  Document Loader       Complete
+  Text Splitter         Complete
+  Embedding Service     Complete
+  Vector Store          Complete
+  Indexing Pipeline     Complete
+  Integration Testing   Complete
+
+------------------------------------------------------------------------
+
+# 7. Verification Summary
+
+Latest verification confirmed:
+
+-   42 PDF documents loaded
+-   206 text chunks generated
+-   Embedding model initialized successfully
+-   FAISS vector database created
+-   Vector index persisted to disk
+-   Integration tests passed successfully
+
+------------------------------------------------------------------------
+
+# 8. Known Development Notes
+
+## uv Installation
+
+During Sprint 02 the `uv` executable was unavailable after activating
+the project virtual environment because its installation directory was
+missing from the PATH.
+
+The issue was resolved by adding:
+
+``` cmd
+C:\Users\mriyu\.local\bin
+```
+
+to the user PATH environment variable.
+
+This resolution has been documented for future project setup.
+
+------------------------------------------------------------------------
+
+# 9. Next Development Phase
+
+Sprint 04 will implement:
+
+-   Retriever Service
+-   Similarity Search
+-   Prompt Assembly
+-   Hugging Face LLM Integration
+-   Complete RAG Question Answering Pipeline
+
+------------------------------------------------------------------------
+
+# 10. Conclusion
+
+The backend foundation and document indexing pipeline are complete. The
+project now has a production-ready architecture capable of loading
+documents, generating embeddings, creating a FAISS vector database, and
+supporting retrieval functionality in the next sprint.
+
+------------------------------------------------------------------------
+
+**Document Status:** Current
+
+**Version:** 0.3.0
+
+**End of Document**

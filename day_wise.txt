@@ -1880,3 +1880,491 @@ backend/vectorstore contains FAISS index files, not Python code.
 
 This behavior is normal and not an indication of any issue.
 ************************************************************
+added .gitattribute
+
+finally commited the change
+
+******************************************************
+SPRINT03 planning:
+
+# Sprint 03 Plan
+
+| Field | Details |
+|--------|---------|
+| **Project Name** | RAGFlow AI Platform |
+| **Sprint Number** | Sprint 03 |
+| **Sprint Title** | Document Processing Pipeline |
+| **Sprint Version** | 1.0.0 |
+| **Sprint Status** | Planned |
+| **Prepared By** | Mrityunjay P. |
+| **Role** | AI Engineer |
+| **Sprint Duration** | Sprint 03 |
+| **Planned Start Date** | 04 July 2026 |
+| **Target Completion Date** | To Be Determined |
+
+---
+
+# Revision History
+
+| Version | Date | Author | Description |
+|----------|------|--------|-------------|
+| 1.0.0 | 04 July 2026 | Mrityunjay P. | Initial Sprint 03 planning document. |
+
+---
+
+# Table of Contents
+
+1. Sprint Objective
+2. Sprint Scope
+3. Planned Activities
+4. Expected Deliverables
+5. Acceptance Criteria
+6. Dependencies
+7. Risks
+8. Out of Scope
+9. Definition of Done
+10. Expected Outcome
+
+---
+
+# 1. Sprint Objective
+
+The objective of Sprint 03 is to design and implement the document processing pipeline for the RAGFlow AI Platform.
+
+This sprint focuses on converting raw PDF documents into searchable vector embeddings through a modular processing pipeline. The completed pipeline will prepare documents for Retrieval-Augmented Generation (RAG) in subsequent sprints.
+
+---
+
+# 2. Sprint Scope
+
+The scope of Sprint 03 includes the implementation of the complete document indexing workflow.
+
+The following components are included:
+
+1. Document loading service.
+2. Text splitting service.
+3. Embedding generation service.
+4. FAISS vector store creation.
+5. Vector store persistence.
+6. End-to-end indexing pipeline.
+7. Integration verification.
+8. Technical documentation updates.
+
+---
+
+# 3. Planned Activities
+
+1. Implement document loading service (`document_loader.py`).
+2. Implement text splitting service (`text_splitter.py`).
+3. Implement embedding service (`embedding_service.py`).
+4. Implement vector store service (`vector_store.py`).
+5. Implement indexing pipeline (`indexing_service.py`).
+6. Update `create_vectorstore.py`.
+7. Perform end-to-end verification.
+8. Update project documentation.
+9. Commit completed work to GitHub.
+
+---
+
+## Sprint Roadmap
+
+```text
+Sprint 03
+│
+├── Step 3.1  Sprint Planning                    🔄 Current
+│
+├── Step 3.2  Document Loader Service
+│
+├── Step 3.3  Text Splitter Service
+│
+├── Step 3.4  Embedding Service
+│
+├── Step 3.5  Vector Store Service
+│
+├── Step 3.6  Indexing Pipeline
+│
+├── Step 3.7  Integration Verification
+│
+├── Step 3.8  Documentation Update
+│
+└── Step 3.9  Git Commit & Push
+```
+
+---
+
+# 4. Expected Deliverables
+
+At the completion of Sprint 03, the following deliverables are expected:
+
+## Backend Services
+
+- `document_loader.py`
+- `text_splitter.py`
+- `embedding_service.py`
+- `vector_store.py`
+- `indexing_service.py`
+
+## Application
+
+- Updated `create_vectorstore.py`
+
+## Verification Scripts
+
+- `test_document_loader.py`
+- `test_text_splitter.py`
+- `test_embedding_service.py`
+- `test_vector_store.py`
+- `test_indexing_service.py`
+- `test_sprint03.py`
+
+## Documentation
+
+- Sprint03.md
+- Day03.md
+- Backend Documentation
+- CHANGELOG.md
+
+---
+
+# 5. Acceptance Criteria
+
+Sprint 03 will be considered complete when:
+
+1. PDF documents are loaded successfully.
+2. Documents are split into configurable chunks.
+3. Embeddings are generated successfully.
+4. FAISS vector store is created.
+5. Vector store is persisted locally.
+6. Vector store can be reloaded successfully.
+7. End-to-end indexing pipeline executes without errors.
+8. Verification scripts execute successfully.
+9. Documentation has been updated.
+10. Code complies with PEP 8 guidelines.
+
+---
+
+# 6. Dependencies
+
+Sprint 03 depends on the successful completion of Sprint 02.
+
+The following prerequisites have already been completed:
+
+1. Backend project structure.
+2. Centralized configuration management.
+3. Environment variable management.
+4. Application constants.
+5. Logging framework.
+6. Exception framework.
+7. Prompt management.
+8. Backend infrastructure verification.
+
+---
+
+# 7. Risks
+
+The following risks have been identified:
+
+1. Large PDF files increasing processing time.
+2. Memory usage during embedding generation.
+3. Embedding model download failures.
+4. FAISS index compatibility.
+5. Document parsing inconsistencies.
+
+Risk mitigation strategies include:
+
+- Modular implementation.
+- Incremental testing.
+- Configuration-driven processing.
+- Comprehensive logging.
+- Exception handling.
+
+---
+
+# 8. Out of Scope
+
+The following activities are intentionally excluded from Sprint 03:
+
+1. Retrieval pipeline.
+2. LLM integration.
+3. Question-answer generation.
+4. FastAPI endpoints.
+5. Streamlit frontend.
+6. Docker deployment.
+7. Cloud deployment.
+8. Authentication and authorization.
+
+These activities will be addressed in future sprints.
+
+---
+
+# 9. Definition of Done
+
+Sprint 03 will be considered complete when:
+
+1. All planned document processing modules have been implemented.
+2. Vector store creation is successful.
+3. End-to-end indexing is verified.
+4. Code follows project coding standards.
+5. Documentation has been updated.
+6. Verification scripts execute successfully.
+7. Changes have been committed and pushed to GitHub.
+
+---
+
+# 10. Expected Outcome
+
+Upon completion of Sprint 03, the RAGFlow AI Platform will have a fully functional document indexing pipeline capable of:
+
+- Loading PDF documents.
+- Splitting text into optimized chunks.
+- Generating semantic embeddings.
+- Creating a searchable FAISS vector database.
+- Persisting the vector store for future retrieval.
+
+This sprint establishes the knowledge base that will be queried by the Retrieval-Augmented Generation pipeline in Sprint 04.
+
+---
+
+# Sprint Summary
+
+| Metric | Status |
+|---------|--------|
+| Sprint Progress | 0% |
+| Completed Steps | 0 / 9 |
+| Current Activity | Step 3.1 – Sprint Planning |
+| Next Development Task | Step 3.2 – Document Loader Service |
+
+---
+
+**Document Status:** Planned
+
+**Sprint Status:** Planned
+
+**Next Milestone:** Step 3.2 – Document Loader Service
+
+---
+
+**End of Sprint 03 Plan**
+
+------------------------------------
+Step 3.2  Document Loader Service
+
+-----------------------------------
+
+document_loader.py
+===================
+backend/app/services/document_loader.py
+===========
+backend/test_document_loader.py
+======================
+backend/app/services/text_splitter.py
+====================
+backend/test_text_splitter.py
+=============================
+AI Engineering Review
+
+This implementation adheres to the architecture we've established:
+
+Single Responsibility Principle (SRP): The service only handles text splitting.
+Configuration-driven behavior: chunk_size and chunk_overlap come from config.py, not hardcoded values.
+Consistent error handling: Uses RAGFlowException for unified exception reporting.
+Centralized logging: Integrates with the project's logging framework.
+Reusable interface: Returns list[Document], which can be consumed directly by the upcoming EmbeddingService
+========================================
+Step 3.4 — Embedding Service
+The EmbeddingService should:
+
+Initialize the embedding model from config.py.
+Read the model name from centralized configuration.
+Support CPU/GPU through configuration.
+Support embedding normalization through configuration.
+Return a reusable LangChain embedding object.
+Log initialization progress.
+Use RAGFlowException for consistent error handling.
+
+-----------------
+backend/app/services/embedding_service.py
+
+backend/test_embedding_service.py
+
+------------------------------------------
+Step 3.5 is where our documents become a searchable knowledge base. 
+Following the same engineering principles, we'll create a dedicated 
+VectorStoreService whose only responsibility is creating, saving, and
+loading the FAISS vector store.
+------------------------
+
+backend/app/services/vector_store.py
+----------------------------
+backend/test_vector_store.py
+
+=========================================
+Step 3.6 — Indexing Pipeline
+Objective
+
+Create a reusable indexing pipeline that performs the complete document indexing workflow from start to finish.
+
+The pipeline should:
+
+Load PDF documents.
+Split documents into chunks.
+Generate embeddings.
+Create a FAISS vector database.
+Save the vector database.
+Return the created vector store.
+
+backend
+│
+├── app
+│   ├── services
+│   │      ...
+│   │
+│   └── pipelines
+│          ├── __init__.py
+│          └── indexing_pipeline.py
+│
+└── test_indexing_pipeline.py
+
+-------------------
+PDF Folder
+     │
+     ▼
+DocumentLoaderService
+     │
+     ▼
+TextSplitterService
+     │
+     ▼
+EmbeddingService
+     │
+     ▼
+VectorStoreService
+     │
+     ▼
+Saved FAISS Index
+=============================================
+backend/app/pipelines/indexing_pipeline.py
+-------------------------
+backend/test_indexing_pipeline.py
+-----------------------
+### Technical Debt
+
+- LangChain issued a deprecation warning indicating that
+  `langchain_community.vectorstores.FAISS`
+  will eventually migrate to a standalone integration package.
+
+- Current implementation remains functional and stable.
+
+- Planned Action:
+  Review LangChain migration guide and update imports during a future
+  dependency upgrade sprint after validating compatibility.
+  -----------------------------------------------------------
+Q: I am seeing two files in vectorstore folder: 1. index.faiss and index.pkl
+Ans:  Yes — this is exactly what you should expect. It indicates that your FAISS vector store was successfully created and persisted to disk.
+
+Here's what those two files contain:
+
+File	Purpose	Required
+index.faiss	Stores the FAISS vector index (the numerical embeddings and search index).	✅ Yes
+index.pkl	Stores the LangChain metadata, including the mapping between FAISS vector IDs and the original Document objects (text, metadata, source, page, etc.).	✅ Yes
+How they work together
+PDF Documents
+      │
+      ▼
+Text Chunks
+      │
+      ▼
+Embeddings (768-dimensional vectors)
+      │
+      ▼
+FAISS Index
+      │
+      ├── index.faiss   ← Vector index
+      │
+      └── index.pkl     ← Document metadata
+
+When you later execute:
+
+vectorstore = FAISS.load_local(...)
+
+LangChain:
+
+Loads index.faiss into memory.
+Loads index.pkl.
+Reconstructs the complete FAISS vector store object.
+Associates each vector with its corresponding document and metadata.
+
+Without index.pkl, FAISS could still perform nearest-neighbor searches, 
+but it would not know which document or text chunk each vector corresponds to.
+===================================
+backend/test_integration.py
+
+Step 3.7 – End-to-End Integration Testing
+Objective
+
+Verify that the following workflow executes successfully:
+
+PDF Documents
+      │
+      ▼
+Document Loader
+      │
+      ▼
+Text Splitter
+      │
+      ▼
+Embedding Service
+      │
+      ▼
+Vector Store
+      │
+      ▼
+Save FAISS Index
+
+Unlike the previous tests, this test validates the entire Sprint 03 deliverable rather than an individual service.
+-------------------------------
+Small Improvement for Sprint 04
+
+One optimization I recommend before moving to retrieval is to avoid reloading 
+the embedding model multiple times. Currently, each new EmbeddingService instance 
+initializes the model again. Introducing a simple singleton or cached instance
+ will improve startup performance, especially as the application grows.
+
+This isn't necessary for Sprint 03, but it's a good enhancement to schedule for 
+Sprint 04 or a later refactoring sprint.
+--------------
+sprint03.md
+--------
+day03.md
+-------
+03_Backend_Documentation.md
+----------
+CHANGELOG.md (Sprint 03 entries)
+-----------------
+============
+Completed Milestones
+✅ Sprint 01 – Project Setup
+Repository initialization
+Development environment
+Project structure
+Documentation framework
+✅ Sprint 02 – Backend Foundation
+Configuration management
+Constants
+Logger
+Exception handling
+Prompt templates
+Backend verification
+Documentation
+✅ Sprint 03 – Document Indexing Pipeline
+PDF Loader
+Text Splitter
+Embedding Service
+FAISS Vector Store
+Indexing Pipeline
+Integration testing
+Documentation
+
+You now have a production-quality offline indexing pipeline.
+===============================================================
+******************************************************************** 
