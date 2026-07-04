@@ -1,0 +1,1882 @@
+Day01----
+===================
+
+Plan
+   │
+   ▼
+Develop
+   │
+   ▼
+Test
+   │
+   ▼
+Update Documentation
+   │
+   ▼
+Update Project Log
+   │
+   ▼
+Update Sprint Report (when applicable)
+   │
+   ▼
+Commit to Git
+   │
+   ▼
+Push to GitHub
+
+==================
+
+Task done: Day01 :: Setting environments and required files/folders
+----------------
+1. Creation of git repo
+2. Cloning the repo on desktop
+3. Activate virtual environment "conda activate ai"
+3. Initialized uv init
+4. Created folders, subfolders and files 
+ragflow-ai-platform/
+│
+├── backend/
+│   ├── app.py                 (empty placeholder)
+│   ├── rag.py                 (empty placeholder)
+│   ├── config.py
+│   ├── constants.py
+│   ├── logger.py
+│   ├── prompts.py             (empty placeholder)
+│   ├── create_vectorstore.py  (empty placeholder)
+│   ├── us_census/
+│   └── vectorstore/
+│
+├── frontend/
+│
+├── docs/   (Created 10 different markdown file)
+│
+├── scripts/
+│
+├── tests/
+│
+├── .github/
+│   └── workflows/
+│
+├── pyproject.toml
+├── uv.lock
+├── requirements.txt
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+└── .gitignore
+|__ .env
+
+5. Add required libraries using "uv add [library name]". To remove unwanted library : "uv remove [library name]"
+6. Review pyproject.toml dependencies
+7. Create requirements.txt; will be used during hosting on render
+8. Keep langchain and huggingface api key in .env file
+9. Commit changes to github
+----------------------------------------------------------------------------------------------------------------
+Our plan:
+*********
+User asks:
+"What is LangChain?"
+
+        │
+        ▼
+Python Code
+Receives the user's question.
+
+        │
+        ▼
+Retriever
+Searches documents and adds relevant context.
+
+
+        │
+        ▼
+Prompt Template
+Builds a well-structured prompt with instructions.
+
+
+        │
+        ▼
+Memory (if needed)
+Adds useful conversation history.
+
+        │
+        ▼
+Chat Model
+Packages the messages and prepares the API request.
+
+        │
+        ▼
+OpenAI API
+Authenticates and forwards the request.
+
+        │
+        ▼
+LLM
+Reads the prompt and generates the answer.
+
+        │
+        ▼
+Output Parser (if needed)
+Converts the response into the required format.
+
+        │
+        ▼
+Your Python Code
+Displays the final answer to the user.
+
+======================================================================================================================
+                  User Question
+                        │
+        ┌───────────────┴───────────────┐
+        ▼                               ▼
+   Retriever                        Memory
+        │                               │
+        └───────────────┬───────────────┘
+                        ▼
+                 Prompt Template
+                        ▼
+                   Chat Model
+                        ▼
+                  OpenAI API
+                        ▼
+                      LLM
+                        ▼
+                 Output Parser
+                        ▼
+                  Final Response
+
+======================================================================================================================
+Day01 Learnings:
+---------------
+i) pyproject.toml is the primary configuration file for a Python project. 
+It defines the project's metadata and its ++dependency++ requirements.
+                                          
+ii) How does uv.lock help over time?
+
+Suppose your project is deployed today.
+
+One year later, you clone the repository onto a new computer and run:
+
+uv sync
+
+Because uv.lock is present, uv installs the same versions that were
+originally tested, instead of the latest available versions. 
+This allows you to recreate the original development environment even
+if hundreds of newer package releases exist.
+
+=================================================================
+Project Documentation:
+----------------------
+docs/
+
+00_Project_Charter.md
+01_Project_Overview.md
+02_System_Architecture.md
+03_Backend_Documentation.md
+04_Frontend_Documentation.md
+05_API_Documentation.md
+06_Deployment_Guide.md
+07_User_Manual.md
+08_Maintenance_Guide.md
+09_Troubleshooting.md
+10_Developer_Guide.md
+
+project_log/
+    Day01.md
+    Day02.md
+    ...
+
+sprint_reports/
+    Sprint01.md
+    Sprint02.md
+    ...
+
+meeting_notes/
+    Kickoff_Meeting.md
+
+release_notes/
+    Release_v0.1.0.md
+
+-----------------------------------------------------------------
+Sprint 01 → Project Foundation
+Sprint 02 → Backend Foundation
+Sprint 03 → Vector Database
+Sprint 04 → RAG Pipeline
+Sprint 05 → FastAPI Backend
+Sprint 06 → Streamlit Frontend
+Sprint 07 → Backend & Frontend Integration
+Sprint 08 → Performance Optimization
+Sprint 09 → Dockerization
+Sprint 10 → Cloud Deployment
+Sprint 11 → Logging & Monitoring
+Sprint 12 → Testing & QA
+Sprint 13 → Documentation
+Sprint 14 → Production Hardening
+Sprint 15 → Final Delivery
+------------------------------------------------------------------
+
+# RAGFlow AI Platform - Sprint Roadmap
+
+**Project Version:** 1.0.0
+
+**Methodology:** Agile Scrum
+
+**Development Approach:** Incremental Delivery
+
+**Target Deployment:**
+
+* Backend → Render
+* Frontend → Streamlit Community Cloud
+* Source Code → GitHub
+* Containerization → Docker
+
+---
+
+# Overall Roadmap
+
+```text
+Sprint 01 → Project Foundation
+Sprint 02 → Backend Foundation
+Sprint 03 → Vector Database
+Sprint 04 → RAG Pipeline
+Sprint 05 → FastAPI Backend
+Sprint 06 → Streamlit Frontend
+Sprint 07 → Backend & Frontend Integration
+Sprint 08 → Performance Optimization
+Sprint 09 → Dockerization
+Sprint 10 → Cloud Deployment
+Sprint 11 → Logging & Monitoring
+Sprint 12 → Testing & QA
+Sprint 13 → Documentation
+Sprint 14 → Production Hardening
+Sprint 15 → Final Delivery
+```
+
+---
+
+# Sprint 01 — Project Foundation
+
+**Objective**
+
+Establish the project foundation and development environment.
+
+### Tasks
+
+* Create GitHub repository
+* Clone repository
+* Initialize project using `uv`
+* Configure Conda environment
+* Create project folder structure
+* Configure dependency management
+* Create `.env`
+* Create `.gitignore`
+* Create documentation structure
+* Configure Git
+
+### Deliverables
+
+* Repository
+* Folder structure
+* uv
+* pyproject.toml
+* requirements.txt
+* Initial documentation
+
+### Status
+
+✅ Completed
+
+---
+
+# Sprint 02 — Backend Foundation
+
+**Objective**
+
+Build the backend infrastructure.
+
+### Tasks
+
+* Configuration module
+* Logger
+* Constants
+* Prompt templates
+* Environment management
+* Exception handling
+* Utility functions
+* Application configuration
+
+### Deliverables
+
+* config.py
+* logger.py
+* constants.py
+* prompts.py
+
+---
+
+# Sprint 03 — Vector Database
+
+**Objective**
+
+Implement document processing and vector database generation.
+
+### Tasks
+
+* PDF Loader
+* Recursive Text Splitter
+* HuggingFace Embeddings
+* FAISS Vector Store
+* Persist vector database
+* Reload vector database
+
+### Deliverables
+
+* create_vectorstore.py
+* vectorstore/
+* us_census/
+
+---
+
+# Sprint 04 — RAG Pipeline
+
+**Objective**
+
+Implement Retrieval-Augmented Generation.
+
+### Tasks
+
+* Retriever
+* Prompt template
+* Document chain
+* Retrieval chain
+* HuggingFace LLM
+* Response generation
+
+### Deliverables
+
+* rag.py
+* Prompt engineering
+* Retrieval pipeline
+
+---
+
+# Sprint 05 — FastAPI Backend
+
+**Objective**
+
+Expose the RAG pipeline as REST APIs.
+
+### Tasks
+
+* FastAPI
+* API routing
+* Request validation
+* Response model
+* Health endpoint
+* Chat endpoint
+* Error handling
+
+### Deliverables
+
+```
+GET /
+
+GET /health
+
+POST /chat
+```
+
+---
+
+# Sprint 06 — Streamlit Frontend
+
+**Objective**
+
+Develop a professional UI.
+
+### Tasks
+
+* Streamlit layout
+* Sidebar
+* Chat interface
+* Loading spinner
+* Error messages
+* Session state
+* Response formatting
+
+### Deliverables
+
+Professional Streamlit Application
+
+---
+
+# Sprint 07 — Integration
+
+**Objective**
+
+Connect frontend with backend.
+
+### Tasks
+
+* REST API client
+* Request handling
+* Response parsing
+* Exception handling
+* API timeout
+
+### Deliverables
+
+Complete working application
+
+---
+
+# Sprint 08 — Performance Optimization
+
+**Objective**
+
+Reduce latency.
+
+### Tasks
+
+* Cache embeddings
+* Cache vector store
+* Session optimization
+* Faster loading
+* Resource optimization
+
+### Deliverables
+
+Optimized application
+
+---
+
+# Sprint 09 — Dockerization
+
+**Objective**
+
+Containerize the backend.
+
+### Tasks
+
+* Dockerfile
+* .dockerignore
+* Docker Compose
+* Environment variables
+* Image optimization
+
+### Deliverables
+
+Docker Image
+
+---
+
+# Sprint 10 — Cloud Deployment
+
+**Objective**
+
+Deploy application.
+
+### Tasks
+
+Backend
+
+* GitHub
+* Render
+
+Frontend
+
+* GitHub
+* Streamlit Community Cloud
+
+Secrets
+
+* HuggingFace API Key
+* Environment Variables
+
+### Deliverables
+
+Live Application
+
+---
+
+# Sprint 11 — Logging & Monitoring
+
+**Objective**
+
+Improve observability.
+
+### Tasks
+
+* Logging
+* Request logs
+* Exception logs
+* API monitoring
+* Health monitoring
+
+### Deliverables
+
+Production logging
+
+---
+
+# Sprint 12 — Testing & Quality Assurance
+
+**Objective**
+
+Ensure application quality.
+
+### Tasks
+
+* Unit testing
+* API testing
+* Integration testing
+* Manual testing
+* Edge case testing
+
+### Deliverables
+
+Testing report
+
+---
+
+# Sprint 13 — Documentation
+
+**Objective**
+
+Complete project documentation.
+
+### Tasks
+
+Update all documentation
+
+* Project Charter
+* Architecture
+* Backend
+* Frontend
+* API
+* Deployment
+* User Guide
+* Maintenance Guide
+* Troubleshooting
+* Developer Guide
+
+### Deliverables
+
+Complete documentation
+
+---
+
+# Sprint 14 — Production Hardening
+
+**Objective**
+
+Prepare for production.
+
+### Tasks
+
+* Code cleanup
+* PEP 8 review
+* Security review
+* Performance review
+* Dependency review
+* Remove dead code
+* Final optimization
+
+### Deliverables
+
+Production-ready codebase
+
+---
+
+# Sprint 15 — Final Delivery
+
+**Objective**
+
+Deliver the complete solution.
+
+### Tasks
+
+* Final testing
+* GitHub release
+* Documentation review
+* Release notes
+* Version tagging
+* Client handover
+
+### Deliverables
+
+Version 1.0.0
+
+---
+
+# Project Timeline
+
+| Sprint    | Title                          | Status      |
+| --------- | ------------------------------ | ----------- |
+| Sprint 01 | Project Foundation             | ✅ Completed |
+| Sprint 02 | Backend Foundation             | ⏳ Planned   |
+| Sprint 03 | Vector Database                | ⏳ Planned   |
+| Sprint 04 | RAG Pipeline                   | ⏳ Planned   |
+| Sprint 05 | FastAPI Backend                | ⏳ Planned   |
+| Sprint 06 | Streamlit Frontend             | ⏳ Planned   |
+| Sprint 07 | Backend & Frontend Integration | ⏳ Planned   |
+| Sprint 08 | Performance Optimization       | ⏳ Planned   |
+| Sprint 09 | Dockerization                  | ⏳ Planned   |
+| Sprint 10 | Cloud Deployment               | ⏳ Planned   |
+| Sprint 11 | Logging & Monitoring           | ⏳ Planned   |
+| Sprint 12 | Testing & QA                   | ⏳ Planned   |
+| Sprint 13 | Documentation                  | ⏳ Planned   |
+| Sprint 14 | Production Hardening           | ⏳ Planned   |
+| Sprint 15 | Final Delivery                 | ⏳ Planned   |
+
+---
+
+# Expected Final Deliverables
+
+At project completion, the client will receive:
+
+* Production-ready FastAPI backend
+* Production-ready Streamlit frontend
+* RAG pipeline with LangChain
+* FAISS vector database
+* Hugging Face LLM integration
+* Dockerized backend
+* Render deployment
+* Streamlit Community Cloud deployment
+* Complete GitHub repository
+* Full technical documentation
+* API documentation
+* User manual
+* Maintenance guide
+* Troubleshooting guide
+* Developer guide
+* Versioned release (`v1.0.0`)
+
+---
+
+## Recommendation
+
+One enhancement I'd suggest is to **treat each sprint as a client milestone**. Every sprint should conclude with:
+
+* A working feature that can be demonstrated.
+* Updated documentation reflecting the new functionality.
+* A meaningful Git commit (or set of commits).
+* A GitHub push.
+* A sprint report summarizing accomplishments.
+* A tagged version (for major milestones).
+
+This mirrors professional Agile delivery practices and gives you a strong portfolio that demonstrates not only coding ability but also project planning, documentation, and disciplined software delivery.
+--------------------------------------
+
+I think this is the right time to define the **entire project roadmap** before writing more code. It will help you, me, and any future client understand where we are, what has been completed, and what remains.
+
+Since this is your **first production-grade AI Engineering project**, I recommend following an **Agile Scrum** methodology with **15 logical sprints**. Each sprint produces a working deliverable and corresponding documentation.
+
+---
+
+# RAGFlow AI Platform - Sprint Roadmap
+
+**Project Version:** 1.0.0
+
+**Methodology:** Agile Scrum
+
+**Development Approach:** Incremental Delivery
+
+**Target Deployment:**
+
+* Backend → Render
+* Frontend → Streamlit Community Cloud
+* Source Code → GitHub
+* Containerization → Docker
+
+---
+
+# Overall Roadmap
+
+```text
+Sprint 01 → Project Foundation
+Sprint 02 → Backend Foundation
+Sprint 03 → Vector Database
+Sprint 04 → RAG Pipeline
+Sprint 05 → FastAPI Backend
+Sprint 06 → Streamlit Frontend
+Sprint 07 → Backend & Frontend Integration
+Sprint 08 → Performance Optimization
+Sprint 09 → Dockerization
+Sprint 10 → Cloud Deployment
+Sprint 11 → Logging & Monitoring
+Sprint 12 → Testing & QA
+Sprint 13 → Documentation
+Sprint 14 → Production Hardening
+Sprint 15 → Final Delivery
+```
+
+---
+
+# Sprint 01 — Project Foundation
+
+**Objective**
+
+Establish the project foundation and development environment.
+
+### Tasks
+
+* Create GitHub repository
+* Clone repository
+* Initialize project using `uv`
+* Configure Conda environment
+* Create project folder structure
+* Configure dependency management
+* Create `.env`
+* Create `.gitignore`
+* Create documentation structure
+* Configure Git
+
+### Deliverables
+
+* Repository
+* Folder structure
+* uv
+* pyproject.toml
+* requirements.txt
+* Initial documentation
+
+### Status
+
+✅ Completed
+
+---
+
+# Sprint 02 — Backend Foundation
+
+**Objective**
+
+Build the backend infrastructure.
+
+### Tasks
+
+* Configuration module
+* Logger
+* Constants
+* Prompt templates
+* Environment management
+* Exception handling
+* Utility functions
+* Application configuration
+
+### Deliverables
+
+* config.py
+* logger.py
+* constants.py
+* prompts.py
+
+---
+
+# Sprint 03 — Vector Database
+
+**Objective**
+
+Implement document processing and vector database generation.
+
+### Tasks
+
+* PDF Loader
+* Recursive Text Splitter
+* HuggingFace Embeddings
+* FAISS Vector Store
+* Persist vector database
+* Reload vector database
+
+### Deliverables
+
+* create_vectorstore.py
+* vectorstore/
+* us_census/
+
+---
+
+# Sprint 04 — RAG Pipeline
+
+**Objective**
+
+Implement Retrieval-Augmented Generation.
+
+### Tasks
+
+* Retriever
+* Prompt template
+* Document chain
+* Retrieval chain
+* HuggingFace LLM
+* Response generation
+
+### Deliverables
+
+* rag.py
+* Prompt engineering
+* Retrieval pipeline
+
+---
+
+# Sprint 05 — FastAPI Backend
+
+**Objective**
+
+Expose the RAG pipeline as REST APIs.
+
+### Tasks
+
+* FastAPI
+* API routing
+* Request validation
+* Response model
+* Health endpoint
+* Chat endpoint
+* Error handling
+
+### Deliverables
+
+```
+GET /
+
+GET /health
+
+POST /chat
+```
+
+---
+
+# Sprint 06 — Streamlit Frontend
+
+**Objective**
+
+Develop a professional UI.
+
+### Tasks
+
+* Streamlit layout
+* Sidebar
+* Chat interface
+* Loading spinner
+* Error messages
+* Session state
+* Response formatting
+
+### Deliverables
+
+Professional Streamlit Application
+
+---
+
+# Sprint 07 — Integration
+
+**Objective**
+
+Connect frontend with backend.
+
+### Tasks
+
+* REST API client
+* Request handling
+* Response parsing
+* Exception handling
+* API timeout
+
+### Deliverables
+
+Complete working application
+
+---
+
+# Sprint 08 — Performance Optimization
+
+**Objective**
+
+Reduce latency.
+
+### Tasks
+
+* Cache embeddings
+* Cache vector store
+* Session optimization
+* Faster loading
+* Resource optimization
+
+### Deliverables
+
+Optimized application
+
+---
+
+# Sprint 09 — Dockerization
+
+**Objective**
+
+Containerize the backend.
+
+### Tasks
+
+* Dockerfile
+* .dockerignore
+* Docker Compose
+* Environment variables
+* Image optimization
+
+### Deliverables
+
+Docker Image
+
+---
+
+# Sprint 10 — Cloud Deployment
+
+**Objective**
+
+Deploy application.
+
+### Tasks
+
+Backend
+
+* GitHub
+* Render
+
+Frontend
+
+* GitHub
+* Streamlit Community Cloud
+
+Secrets
+
+* HuggingFace API Key
+* Environment Variables
+
+### Deliverables
+
+Live Application
+
+---
+
+# Sprint 11 — Logging & Monitoring
+
+**Objective**
+
+Improve observability.
+
+### Tasks
+
+* Logging
+* Request logs
+* Exception logs
+* API monitoring
+* Health monitoring
+
+### Deliverables
+
+Production logging
+
+---
+
+# Sprint 12 — Testing & Quality Assurance
+
+**Objective**
+
+Ensure application quality.
+
+### Tasks
+
+* Unit testing
+* API testing
+* Integration testing
+* Manual testing
+* Edge case testing
+
+### Deliverables
+
+Testing report
+
+---
+
+# Sprint 13 — Documentation
+
+**Objective**
+
+Complete project documentation.
+
+### Tasks
+
+Update all documentation
+
+* Project Charter
+* Architecture
+* Backend
+* Frontend
+* API
+* Deployment
+* User Guide
+* Maintenance Guide
+* Troubleshooting
+* Developer Guide
+
+### Deliverables
+
+Complete documentation
+
+---
+
+# Sprint 14 — Production Hardening
+
+**Objective**
+
+Prepare for production.
+
+### Tasks
+
+* Code cleanup
+* PEP 8 review
+* Security review
+* Performance review
+* Dependency review
+* Remove dead code
+* Final optimization
+
+### Deliverables
+
+Production-ready codebase
+
+---
+
+# Sprint 15 — Final Delivery
+
+**Objective**
+
+Deliver the complete solution.
+
+### Tasks
+
+* Final testing
+* GitHub release
+* Documentation review
+* Release notes
+* Version tagging
+* Client handover
+
+### Deliverables
+
+Version 1.0.0
+
+---
+
+# Project Timeline
+
+| Sprint    | Title                          | Status      |
+| --------- | ------------------------------ | ----------- |
+| Sprint 01 | Project Foundation             | ✅ Completed |
+| Sprint 02 | Backend Foundation             | ⏳ Planned   |
+| Sprint 03 | Vector Database                | ⏳ Planned   |
+| Sprint 04 | RAG Pipeline                   | ⏳ Planned   |
+| Sprint 05 | FastAPI Backend                | ⏳ Planned   |
+| Sprint 06 | Streamlit Frontend             | ⏳ Planned   |
+| Sprint 07 | Backend & Frontend Integration | ⏳ Planned   |
+| Sprint 08 | Performance Optimization       | ⏳ Planned   |
+| Sprint 09 | Dockerization                  | ⏳ Planned   |
+| Sprint 10 | Cloud Deployment               | ⏳ Planned   |
+| Sprint 11 | Logging & Monitoring           | ⏳ Planned   |
+| Sprint 12 | Testing & QA                   | ⏳ Planned   |
+| Sprint 13 | Documentation                  | ⏳ Planned   |
+| Sprint 14 | Production Hardening           | ⏳ Planned   |
+| Sprint 15 | Final Delivery                 | ⏳ Planned   |
+
+---
+
+# Expected Final Deliverables
+
+At project completion, the client will receive:
+
+* Production-ready FastAPI backend
+* Production-ready Streamlit frontend
+* RAG pipeline with LangChain
+* FAISS vector database
+* Hugging Face LLM integration
+* Dockerized backend
+* Render deployment
+* Streamlit Community Cloud deployment
+* Complete GitHub repository
+* Full technical documentation
+* API documentation
+* User manual
+* Maintenance guide
+* Troubleshooting guide
+* Developer guide
+* Versioned release (`v1.0.0`)
+
+---
+
+## Recommendation
+
+One enhancement I'd suggest is to **treat each sprint as a client milestone**. Every sprint should conclude with:
+
+* A working feature that can be demonstrated.
+* Updated documentation reflecting the new functionality.
+* A meaningful Git commit (or set of commits).
+* A GitHub push.
+* A sprint report summarizing accomplishments.
+* A tagged version (for major milestones).
+
+This mirrors professional Agile delivery practices and gives you a strong portfolio that demonstrates not only coding ability but also project planning, documentation, and disciplined software delivery.
+-------------------------------------
+
+| Document                         | Created                                                 | Updated During Project                                | Purpose                                                                                                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **00_Project_Charter.md**        | Before project development begins                       | Rarely (only if business scope or objectives change)  | Formally authorizes the project by defining its business objectives, scope, stakeholders, assumptions, constraints, risks, and success criteria. Serves as the project's governing document.            |
+| **01_Project_Overview.md**       | Before project development begins                       | Yes (when project features, scope, or roadmap change) | Provides a high-level overview of the application, business problem, proposed solution, key features, technology stack, and overall project vision.                                                     |
+| **02_System_Architecture.md**    | During the design phase, before implementation          | Yes (as architecture evolves)                         | Describes the overall system architecture, application components, data flow, deployment architecture, design decisions, and interactions between different modules.                                    |
+| **03_Backend_Documentation.md**  | When backend development begins                         | Continuously                                          | Documents the backend implementation, project structure, configuration, RAG pipeline, business logic, services, logging, error handling, and backend workflows.                                         |
+| **04_Frontend_Documentation.md** | When frontend development begins                        | Continuously                                          | Documents the Streamlit user interface, page layout, UI components, navigation flow, user interactions, session management, and frontend architecture.                                                  |
+| **05_API_Documentation.md**      | When REST APIs are developed                            | Continuously                                          | Documents all API endpoints, request and response models, HTTP methods, status codes, validation rules, authentication (if applicable), and error responses.                                            |
+| **06_Deployment_Guide.md**       | Before deployment activities begin                      | Yes (whenever deployment process changes)             | Provides complete deployment instructions for GitHub, Docker, Render, Streamlit Community Cloud, environment variables, and production configuration.                                                   |
+| **07_User_Manual.md**            | After major application features are available          | Yes (when new user features are introduced)           | Explains how end users can install (if applicable), access, navigate, and use the application, including common workflows and best practices.                                                           |
+| **08_Maintenance_Guide.md**      | After the core application is functional                | Continuously                                          | Documents routine maintenance procedures, dependency updates, vector database regeneration, document updates, backups, monitoring, and operational best practices.                                      |
+| **09_Troubleshooting.md**        | As issues are identified during development and testing | Continuously                                          | Provides solutions for common installation, deployment, configuration, runtime, API, and application issues, along with diagnostic procedures and recommended resolutions.                              |
+| **10_Developer_Guide.md**        | When the project structure is established               | Continuously                                          | Helps current and future developers understand the project architecture, folder structure, coding standards, development workflow, contribution process, debugging practices, and extension guidelines. |
+==========================================================
+
+logger.py needs LOG_LEVEL
+rag.py needs CHUNK_SIZE
+create_vectorstore.py needs EMBEDDING_MODEL
+app.py needs PROJECT_NAME
+FastAPI needs ENVIRONMENT
+Docker will inject environment variables
+
+Day02----
+===================
+1.added uv PATH to ENV Variables
+------------------------------------
+
+(ragflow-ai-platform) C:\Users\mriyu\Agentic\ragflow-ai-platform>dir C:\Users\mriyu\.local\bin
+ Volume in drive C is Windows
+ Volume Serial Number is 46C8-E9DC
+
+ Directory of C:\Users\mriyu\.local\bin
+
+07/03/2026  10:38 PM    <DIR>          .
+01/26/2026  07:05 PM    <DIR>          ..
+01/26/2026  07:05 PM            39,424 python3.11.exe
+06/30/2026  02:16 PM        73,969,152 uv.exe
+06/30/2026  02:17 PM           338,432 uvw.exe
+06/30/2026  02:17 PM           337,920 uvx.exe
+               4 File(s)     74,684,928 bytes
+               2 Dir(s)  201,074,221,056 bytes free
+
+(ragflow-ai-platform) C:\Users\mriyu\Agentic\ragflow-ai-platform>set PATH=C:\Users\mriyu\.local\bin;%PATH%
+
+(ragflow-ai-platform) C:\Users\mriyu\Agentic\ragflow-ai-platform>uv --version
+uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)
+
+(ragflow-ai-platform) C:\Users\mriyu\Agentic\ragflow-ai-platform>setx PATH "C:\Users\mriyu\.local\bin;%PATH%"
+
+WARNING: The data being saved is truncated to 1024 characters.
+
+SUCCESS: Specified value was saved.
+
+(ragflow-ai-platform) C:\Users\mriyu\Agentic\ragflow-ai-platform>uv --version
+uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)
+
+(ragflow-ai-platform) C:\Users\mriyu\Agentic\ragflow-ai-platform>uv add pydantic-settings
+Resolved 103 packages in 2.14s
+Checked 101 packages in 58ms
+
+2. write code for config.py  
+-------------------------
+This file actually picks all variables from .env file using pydantic models and functions
+"""
+Application configuration.
+
+All configurable values are defined here and loaded from environment
+variables or the local `.env` file using Pydantic Settings.
+"""
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    """Application settings."""
+
+    # Project
+    PROJECT_NAME: str = "RAGFlow AI Platform"  # default value
+    PROJECT_VERSION: str = "1.0.0"
+    ENVIRONMENT: str = "development"
+
+    # Hugging Face
+    HUGGINGFACEHUB_API_TOKEN: str  # There is no default value. This variable must exist.
+    LLM_REPOSITORY: str = "deepseek-ai/DeepSeek-R1-0528"
+    PROVIDER: str = "auto"
+
+    # Embeddings
+    EMBEDDING_MODEL: str = (
+        "sentence-transformers/all-mpnet-base-v2"
+    )
+    EMBEDDING_DEVICE: str = "cpu"
+    NORMALIZE_EMBEDDINGS: bool = False
+
+    # Document processing
+    PDF_DIRECTORY: str = "backend/us_census"
+    CHUNK_SIZE: int = 1000
+    CHUNK_OVERLAP: int = 200
+
+    '''
+        CHUNK_SIZE: int = 1000
+
+        If CHUNK_SIZE=500 exists inside .env
+
+        then settings.CHUNK_SIZE becomes 500
+    '''    
+    # Vector store
+    VECTOR_STORE_DIRECTORY: str = "backend/vectorstore"
+
+    # LLM generation
+    MAX_NEW_TOKENS: int = 512
+    TEMPERATURE: float = 0.0
+    REPETITION_PENALTY: float = 1.03
+
+    # Logging
+    LOG_LEVEL: str = "INFO"
+    LOG_DIRECTORY: str = "logs"
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+
+# Shared settings instance
+settings = Settings()
+
+----------------------------------
+Python starts
+      │
+      ▼
+Imports config.py
+      │
+      ▼
+Defines the Settings class
+      │
+      ▼
+Executes:
+settings = Settings()
+      │
+      ▼
+BaseSettings checks model_config
+      │
+      ▼
+Reads .env
+      │
+      ▼
+Matches each field by name
+      │
+      ▼
+Loads values into the Settings object
+      │
+      ▼
+Validates required fields and data types
+      │
+      ▼
+Returns the populated settings object
+      │
+      ▼
+Application uses:
+settings.HUGGINGFACEHUB_API_TOKEN
+settings.CHUNK_SIZE
+settings.LLM_REPOSITORY
+................................................................................
+The key idea is that the field names in Settings act as a schema. 
+BaseSettings uses that schema to look up environment variables with matching names, 
+convert them to the declared Python types, validate required values, and expose 
+them as attributes on the single settings object that the rest of your application imports.
+
+backend/test_config.py
+----------------------
+"""
+Temporary configuration verification script.
+"""
+
+from app.core.config import settings
+
+
+print("=" * 60)
+print(settings.PROJECT_NAME)
+print(settings.PROJECT_VERSION)
+print(settings.ENVIRONMENT)
+print(settings.EMBEDDING_MODEL)
+print(settings.PDF_DIRECTORY)
+print(settings.CHUNK_SIZE)
+print(settings.HUGGINGFACEHUB_API_TOKEN[:10] + "...")
+print("=" * 60)
+------------------------------------------------------------------
+
+Finally, backend_architecture.md/CHANGELOG.md, sprint02.md updated and day02.md writtent done.
+**********************************************************************************************************************************
+Day03
+-----------
+Unlike config.py, constants never change during execution.
+============constants.py========================================================================
+"""
+Application-wide constant values.
+
+Constants defined here remain unchanged during runtime and are shared
+across different modules of the application.
+"""
+
+APP_NAME = "RAGFlow AI Platform"
+APP_VERSION = "1.0.0"
+
+API_VERSION = "v1"
+API_PREFIX = f"/api/{API_VERSION}"
+
+DOCUMENT_DIRECTORY = "backend/us_census"
+VECTORSTORE_DIRECTORY = "backend/vectorstore"
+
+SUPPORTED_DOCUMENT_TYPES = (".pdf",)
+
+EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
+
+LLM_REPOSITORY = "deepseek-ai/DeepSeek-R1-0528"
+LLM_TASK = "text-generation"
+
+LOG_FORMAT = (
+    "%(asctime)s | "
+    "%(levelname)s | "
+    "%(name)s | "
+    "%(filename)s:%(lineno)d | "
+    "%(message)s"
+)
+
+LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+APPLICATION_STARTED = "Application started."
+CONFIGURATION_LOADED = "Configuration loaded successfully."
+VECTORSTORE_CREATED = "Vector store created successfully."
+NO_DOCUMENTS_FOUND = "No PDF documents found."
+RAG_READY = "RAG pipeline initialized successfully."
+===================================================================================
+==========backend/test_constants.py===========================================
+
+"""
+Simple verification for application constants.
+
+Run:
+    python backend/test_constants.py
+"""
+
+from app.core import constants
+
+
+def main() -> None:
+    """Display constant values."""
+
+    print("\nApplication Constants")
+    print("-" * 50)
+
+    print(f"Application : {constants.APP_NAME}")
+    print(f"Version     : {constants.APP_VERSION}")
+    print(f"API Prefix  : {constants.API_PREFIX}")
+
+    print(f"Documents   : {constants.DOCUMENT_DIRECTORY}")
+    print(f"VectorStore : {constants.VECTORSTORE_DIRECTORY}")
+
+    print(f"Embedding   : {constants.EMBEDDING_MODEL}")
+    print(f"LLM         : {constants.LLM_REPOSITORY}")
+
+    print("\nConstants loaded successfully.")
+
+
+if __name__ == "__main__":
+    main()
+====================================================================================
+logger.py
+=============================
+exception.py
+=============================
+Q : Should there be any use of 
+custom exception module in constants.py and config.py?
+
+Ans:
+This is an excellent architectural question. The answer is **no**—and there is an important software engineering reason behind it.
+
+## Short Answer
+
+| File           | Use `logger`? | Use `RAGFlowException`? |
+| -------------- | ------------- | ----------------------- |
+| `config.py`    | ❌ No          | ❌ No                    |
+| `constants.py` | ❌ No          | ❌ No                    |
+
+---
+
+# Why not?
+
+## 1. `constants.py`
+
+This file should contain **only constant values**.
+
+Example:
+
+```python
+APP_NAME = "RAGFlow AI Platform"
+
+LOG_FORMAT = "..."
+
+API_VERSION = "v1"
+```
+
+Nothing in this file executes.
+
+Nothing can fail.
+
+There is nothing to log.
+
+There is nothing to catch.
+
+Therefore
+
+* no logger
+* no exception class
+
+---
+
+## 2. `config.py`
+
+This one is slightly more interesting.
+
+Our `config.py` is responsible for
+
+```
+Load .env
+↓
+
+Create settings object
+↓
+
+Return configuration
+```
+
+Now imagine this happens
+
+```
+HUGGINGFACEHUB_API_TOKEN missing
+```
+
+Pydantic itself raises a validation error.
+
+That is exactly what we want.
+
+Example
+
+```
+ValidationError
+
+HUGGINGFACEHUB_API_TOKEN
+Field required
+```
+
+This is much clearer than
+
+```
+RAGFlowException
+
+Configuration Error
+```
+
+because during startup we actually want the application to fail immediately.
+
+---
+
+# More importantly...
+
+Look at the dependency graph.
+
+Today
+
+```
+config.py
+```
+
+is imported by
+
+```
+logger.py
+```
+
+because
+
+```python
+settings.logging.level
+```
+
+comes from `config.py`.
+
+Now imagine `config.py` imports `logger`.
+
+```
+config.py
+↓
+
+imports logger
+
+↓
+
+logger.py
+
+↓
+
+imports config.py
+```
+
+You get
+
+```
+Circular Import
+```
+
+which is one of the most common problems in Python projects.
+
+---
+
+# Same with exceptions
+
+Imagine
+
+```
+config.py
+
+↓
+
+imports exception.py
+```
+
+Later
+
+```
+exception.py
+
+↓
+
+imports logger.py
+
+↓
+
+imports config.py
+```
+
+Again
+
+```
+Circular dependency
+```
+
+---
+
+# Professional Architecture
+
+The dependency direction should always be one-way:
+
+```
+constants.py
+        │
+        ▼
+config.py
+        │
+        ▼
+logger.py
+        │
+        ▼
+exception.py
+        │
+        ▼
+services/
+        │
+        ▼
+rag.py
+        │
+        ▼
+FastAPI
+```
+
+Notice
+
+```
+config.py
+```
+
+never depends on
+
+```
+logger.py
+```
+
+or
+
+```
+exception.py
+```
+
+Only the reverse.
+
+This keeps the architecture clean and avoids circular imports.
+
+---
+
+# Where should `RAGFlowException` be used?
+
+Starting from modules that perform real work, such as:
+
+```
+create_vectorstore.py
+```
+
+```
+rag.py
+```
+
+```
+document_loader.py
+```
+
+```
+embedding.py
+```
+
+```
+FastAPI routes
+```
+
+```
+database.py
+```
+
+These modules can fail due to I/O, networking, or runtime conditions, so wrapping exceptions and logging them there is appropriate.
+
+---
+
+# Final Architecture for This Project
+
+| Module                  | Logger           | Exception         | Reason                                                            |
+| ----------------------- | ---------------- | ----------------- | ----------------------------------------------------------------- |
+| `constants.py`          | ❌                | ❌                 | Static values only                                                |
+| `config.py`             | ❌                | ❌                 | Bootstrap configuration; let Pydantic report configuration errors |
+| `logger.py`             | Uses `config.py` | ❌                 | Initializes logging                                               |
+| `exception.py`          | ❌                | Defines exception | Centralized custom exception                                      |
+| `create_vectorstore.py` | ✅                | ✅                 | Runtime operations                                                |
+| `rag.py`                | ✅                | ✅                 | Runtime operations                                                |
+| `app.py`                | ✅                | ✅                 | Application orchestration                                         |
+| `FastAPI` routes        | ✅                | ✅                 | Request handling                                                  |
+
+This layered dependency structure is what I'd use for a production AI backend because it keeps the foundation (`constants.py` and `config.py`) simple, deterministic, and free of circular dependencies.
+==============================================
+
+Prompt Management
+
+This is an important module because every interaction with the LLM should originate from a single location. We want prompt engineering to be centralized rather than scattering prompt strings across the codebase.
+
+Why do we need prompts.py?
+
+As the project grows, we'll likely use different prompts for:
+
+Question Answering
+Document Summarization
+Chat
+Citation Generation
+Follow-up Questions
+Evaluation
+
+If prompts are hardcoded inside rag.py, updating them
+later becomes difficult. 
+A centralized module makes maintenance much easier.
+
+==============================
+"""
+Prompt templates used throughout the RAGFlow AI Platform.
+
+Keeping prompts in a single module makes them easier to maintain,
+reuse, and improve without modifying application logic.
+"""
+
+from langchain_core.prompts import ChatPromptTemplate
+
+
+RAG_PROMPT = ChatPromptTemplate.from_template(
+    """
+You are an AI assistant that answers questions only from the supplied context.
+
+Instructions:
+
+- Read the context carefully.
+- If the answer exists in the context, provide a clear and complete response.
+- If the answer cannot be found, say:
+  "I don't have enough information in the provided documents."
+- Do not create or assume facts.
+- Keep the answer concise and accurate.
+
+Context:
+{context}
+
+Question:
+{input}
+
+Answer:
+"""
+)
+
+========================================
+backend/test_prompts.py
+
+"""
+Simple verification for the prompt template.
+"""
+
+from app.core.prompts import RAG_PROMPT
+
+
+def main() -> None:
+    """Display the prompt template."""
+
+    print("\nPrompt Template")
+    print("-" * 60)
+
+    print(RAG_PROMPT)
+
+    print("\nPrompt loaded successfully.")
+
+
+if __name__ == "__main__":
+    main()
+
+==================================
+from app.core.prompts import RAG_PROMPT
+
+Then:
+
+document_chain = create_stuff_documents_chain(
+    llm,
+    RAG_PROMPT,
+)
+
+This keeps rag.py focused on orchestration while prompts.py manages prompt definitions.
+============================
+Once you've completed prompts.py and test_prompts.py,
+we'll move to Step 2.6 – Backend Entry Point,
+where we'll begin assembling the core backend 
+components into a functioning RAG application.
+======================================
+"""
+Backend entry point for the RAGFlow AI Platform.
+
+This module initializes the backend application and verifies that the
+core infrastructure has been configured correctly.
+"""
+============backend/app.py
+import sys
+
+from app.core.config import settings
+from app.core.constants import APP_NAME, APP_VERSION
+from app.core.exception import RAGFlowException
+from app.core.logger import logger
+
+
+def initialize_application() -> None:
+    """
+    Initialize the backend application.
+    """
+
+    logger.info("Starting application...")
+
+    logger.info("Project Name : %s", APP_NAME)
+
+    logger.info("Version      : %s", APP_VERSION)
+
+    logger.info("Environment  : %s", settings.project.environment)
+
+    logger.info("Configuration loaded successfully.")
+
+    logger.info("Application initialized successfully.")
+
+
+def main() -> None:
+    """
+    Application entry point.
+    """
+
+    try:
+        initialize_application()
+
+    except Exception as error:
+        logger.exception("Application startup failed.")
+        raise RAGFlowException(error, sys)
+
+
+if __name__ == "__main__":
+    main()
+========================
+We do not need test_app.py
+=========================
+===test_backend.py
+=======================
+Step 2.1  Backend Structure                     ✅
+
+Step 2.2  Configuration Management              ✅
+
+Step 2.3  Constants Module                      ✅
+
+Step 2.4  Logger & Exception                    ✅
+
+Step 2.5  Prompt Management                     ✅
+
+Step 2.6  Core Infrastructure Verification      ✅
+
+Step 2.7  Documentation                         ⏳
+
+Step 2.8  Git Commit                            ⏳
+
+============
+python -m compileall backend
+
+Your output indicates that all Python files compiled successfully.
+
+Analysis
+Listing 'backend'...
+Listing 'backend\app'...
+Listing 'backend\app\api'...
+...
+Compiling 'backend\test_prompts.py'...
+
+There are no errors such as:
+
+SyntaxError
+IndentationError
+ModuleNotFoundError
+ImportError
+
+If any file had a syntax problem, compileall would have stopped and displayed an error message. Since it reached the end without errors, the entire backend is syntactically valid.
+
+What this verifies
+✅ All Python files are free of syntax errors.
+✅ Imports can be resolved at compile time.
+✅ The backend package structure is valid.
+✅ The project is ready for Git commit from a syntax perspective.
+Why some files were only listed and not compiled
+
+Notice:
+
+Listing 'backend\app\core'...
+Listing 'backend\us_census'...
+Listing 'backend\vectorstore'...
+
+These directories were only listed because:
+
+backend/app/core likely already contains up-to-date .pyc bytecode files from previous runs, so compileall did not need to recompile unchanged modules.
+backend/us_census contains PDF documents, not Python code.
+backend/vectorstore contains FAISS index files, not Python code.
+
+This behavior is normal and not an indication of any issue.
+************************************************************
