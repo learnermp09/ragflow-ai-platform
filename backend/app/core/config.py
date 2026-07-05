@@ -9,13 +9,33 @@ Platform. Settings are loaded from environment variables or the local
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from app.core.constants import (
+    API_PREFIX,
+    API_VERSION,
+    APP_NAME,
+    APP_VERSION,
+    DOCUMENT_DIRECTORY,
+    EMBEDDING_MODEL,
+    LLM_REPOSITORY,
+    LLM_TASK,
+    LOG_DIRECTORY,
+    VECTORSTORE_DIRECTORY,
+)
+
 
 class ProjectSettings(BaseModel):
     """General project information."""
 
-    name: str = "RAGFlow AI Platform"
-    version: str = "1.0.0"
+    name: str = APP_NAME
+    version: str = APP_VERSION
     environment: str = "development"
+
+
+class APISettings(BaseModel):
+    """REST API configuration."""
+
+    version: str = API_VERSION
+    prefix: str = API_PREFIX
 
 
 class HuggingFaceSettings(BaseModel):
@@ -28,7 +48,7 @@ class HuggingFaceSettings(BaseModel):
 class EmbeddingSettings(BaseModel):
     """Embedding model configuration."""
 
-    model_name: str = "sentence-transformers/all-mpnet-base-v2"
+    model_name: str = EMBEDDING_MODEL
     device: str = "cpu"
     normalize_embeddings: bool = False
 
@@ -36,7 +56,7 @@ class EmbeddingSettings(BaseModel):
 class DocumentSettings(BaseModel):
     """Configuration for document loading and chunking."""
 
-    pdf_directory: str = "backend/us_census"
+    pdf_directory: str = DOCUMENT_DIRECTORY
     chunk_size: int = 1000
     chunk_overlap: int = 200
 
@@ -44,14 +64,14 @@ class DocumentSettings(BaseModel):
 class VectorStoreSettings(BaseModel):
     """Vector store configuration."""
 
-    directory: str = "backend/vectorstore"
+    directory: str = VECTORSTORE_DIRECTORY
 
 
 class LLMSettings(BaseModel):
     """Large language model configuration."""
 
-    repository: str = "deepseek-ai/DeepSeek-R1-0528"
-    task: str = "text-generation"
+    repository: str = LLM_REPOSITORY
+    task: str = LLM_TASK
     max_new_tokens: int = 512
     temperature: float = 0.0
     repetition_penalty: float = 1.03
@@ -61,7 +81,7 @@ class LoggingSettings(BaseModel):
     """Application logging configuration."""
 
     level: str = "INFO"
-    directory: str = "logs"
+    directory: str = LOG_DIRECTORY
 
 
 class AppSettings(BaseSettings):
@@ -70,6 +90,7 @@ class AppSettings(BaseSettings):
     HUGGINGFACEHUB_API_TOKEN: str
 
     project: ProjectSettings = ProjectSettings()
+    api: APISettings = APISettings()
     embedding: EmbeddingSettings = EmbeddingSettings()
     document: DocumentSettings = DocumentSettings()
     vectorstore: VectorStoreSettings = VectorStoreSettings()

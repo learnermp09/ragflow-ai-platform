@@ -2368,3 +2368,1629 @@ Documentation
 You now have a production-quality offline indexing pipeline.
 ===============================================================
 ******************************************************************** 
+Below is a **chronological checklist** of the complete project journey from **Day 01 to Sprint 03 completion**, suitable for project documentation or a README. It includes repository setup, commands, folder creation, documentation, testing, and development milestones, but **does not include any Python source code**.
+
+---
+
+# RAGFlow AI Platform Development Timeline (Sprint 01 – Sprint 03)
+
+## Sprint 01 – Project Initialization
+
+1. Create a GitHub repository named **ragflow-ai-platform**.
+2. Clone the repository to the local development machine.
+3. Open the project in Visual Studio Code.
+4. Initialize the project using:
+
+   ```bash
+   uv init
+   ```
+5. Create a Conda virtual environment.
+6. Activate the Conda environment.
+7. Create a project virtual environment using:
+
+   ```bash
+   uv venv
+   ```
+8. Activate the project virtual environment.
+9. Create a `.env` file.
+10. Store the LangSmith API Key in `.env`.
+11. Store the Hugging Face API Token in `.env`.
+12. Create a `.gitignore` file.
+13. Install project dependencies using `uv add`:
+
+    * langchain
+    * langchain-community
+    * langchain-core
+    * langchain-huggingface
+    * langchain-text-splitters
+    * langchain-openai
+    * pydantic
+    * pydantic-settings
+    * python-dotenv
+    * faiss-cpu
+    * sentence-transformers
+    * transformers
+    * huggingface-hub
+    * streamlit
+    * fastapi
+    * uvicorn
+    * pytest
+14. Generate `uv.lock`.
+15. Export dependencies to:
+
+    ```text
+    requirements.txt
+    ```
+16. Create the initial backend folder structure.
+17. Create the frontend folder structure.
+18. Create the documentation folder structure.
+19. Create the project architecture folders.
+20. Create README.md.
+21. Create LICENSE.
+22. Create CHANGELOG.md.
+23. Create Sprint01.md.
+24. Create Day01.md.
+25. Create Backend Documentation.
+26. Verify project initialization.
+27. Resolve the `uv` PATH issue on Windows.
+28. Commit Sprint 01 to GitHub.
+
+---
+
+# Sprint 02 – Backend Foundation
+
+## Project Structure
+
+29. Create the `backend/app` package.
+30. Create the `api` package.
+31. Create the `core` package.
+32. Create the `services` package.
+33. Create the `pipeline` package.
+34. Create the `utils` package.
+35. Add `__init__.py` files to all packages.
+
+---
+
+## Configuration Management
+
+36. Create `config.py`.
+37. Implement centralized configuration using Pydantic Settings.
+38. Configure automatic `.env` loading.
+39. Organize settings into reusable configuration classes.
+40. Create the singleton `settings` object.
+41. Create `test_config.py`.
+42. Verify configuration loading.
+
+---
+
+## Constants
+
+43. Create `constants.py`.
+44. Centralize application constants.
+45. Create `test_constants.py`.
+46. Verify constants module.
+
+---
+
+## Logging
+
+47. Create `logger.py`.
+48. Configure centralized logging.
+49. Configure console logging.
+50. Configure file logging.
+51. Create logs directory automatically.
+52. Create `test_logger.py`.
+
+---
+
+## Exception Handling
+
+53. Create `exception.py`.
+54. Implement custom `RAGFlowException`.
+55. Standardize backend exception handling.
+56. Create `test_exception.py`.
+
+---
+
+## Prompt Management
+
+57. Create `prompts.py`.
+58. Centralize LangChain prompt templates.
+59. Create `test_prompts.py`.
+
+---
+
+## Backend Initialization
+
+60. Create `app.py`.
+61. Initialize backend configuration.
+62. Initialize logger.
+63. Verify backend startup.
+
+---
+
+## Backend Verification
+
+64. Create `test_backend.py`.
+65. Verify complete backend initialization.
+66. Execute backend verification.
+
+---
+
+## Documentation
+
+67. Update Sprint02.md.
+68. Create Day02.md.
+69. Update Backend Documentation.
+70. Update CHANGELOG.md.
+71. Document the `uv` PATH troubleshooting process.
+
+---
+
+## Code Quality
+
+72. Verify syntax using:
+
+```bash
+python -m compileall backend
+```
+
+73. Stage project files:
+
+```bash
+git add .
+```
+
+74. Commit Sprint 02.
+75. Push Sprint 02 to GitHub.
+
+---
+
+# Sprint 03 – Document Processing Pipeline
+
+## Sprint Planning
+
+76. Create Sprint03.md.
+77. Create Day03.md.
+78. Update project roadmap.
+
+---
+
+## Document Loader
+
+79. Create `document_loader.py`.
+80. Configure PDF loading using PyPDFDirectoryLoader.
+81. Configure document directory.
+82. Create `test_document_loader.py`.
+83. Verify PDF loading.
+
+---
+
+## Text Splitter
+
+84. Create `text_splitter.py`.
+85. Configure RecursiveCharacterTextSplitter.
+86. Configure chunk size.
+87. Configure chunk overlap.
+88. Create `test_text_splitter.py`.
+89. Verify document chunking.
+
+---
+
+## Embedding Service
+
+90. Create `embedding_service.py`.
+91. Configure Hugging Face embedding model.
+92. Configure sentence-transformers.
+93. Create `test_embedding_service.py`.
+94. Verify embedding initialization.
+
+---
+
+## Vector Store
+
+95. Create `vector_store.py`.
+96. Configure FAISS vector database.
+97. Configure vector store persistence.
+98. Generate:
+
+    * `index.faiss`
+    * `index.pkl`
+99. Create `test_vector_store.py`.
+100. Verify vector store creation.
+
+---
+
+## Indexing Pipeline
+
+101. Create `indexing_pipeline.py`.
+102. Integrate document loader.
+103. Integrate text splitter.
+104. Integrate embedding service.
+105. Integrate vector store.
+106. Automate complete indexing workflow.
+107. Create `test_indexing_pipeline.py`.
+108. Verify indexing pipeline.
+
+---
+
+## Integration Testing
+
+109. Create `test_integration.py`.
+110. Verify complete pipeline:
+     - PDF Loading
+     - Text Splitting
+     - Embedding Generation
+     - FAISS Index Creation
+     - Vector Store Persistence
+111. Validate generated FAISS index files.
+
+---
+
+## Documentation
+
+112. Update Sprint03.md.
+113. Create Day03.md.
+114. Update `03_Backend_Documentation.md`.
+115. Update CHANGELOG.md.
+116. Document the indexing workflow.
+117. Update project architecture diagrams.
+
+---
+
+## Final Verification
+
+118. Run all Sprint 03 test modules.
+119. Verify successful creation of the FAISS vector database.
+120. Verify `index.faiss` generation.
+121. Verify `index.pkl` generation.
+122. Verify logging output for all pipeline stages.
+123. Review project folder structure.
+124. Update Git status.
+125. Stage all Sprint 03 changes:
+
+```bash
+git add .
+```
+
+126. Commit Sprint 03:
+
+```bash
+git commit -m "feat(sprint-03): implement complete document indexing pipeline"
+```
+
+127. Push Sprint 03 to GitHub:
+
+```bash
+git push origin main
+```
+
+---
+
+# Project Status After Sprint 03
+
+✅ Sprint 01 – Project Initialization Complete
+
+✅ Sprint 02 – Backend Foundation Complete
+
+✅ Sprint 03 – Document Processing & Indexing Pipeline Complete
+
+**Core Components Implemented**
+
+* GitHub repository and project setup
+* UV-based dependency management
+* Environment configuration
+* Modular backend architecture
+* Centralized configuration management
+* Constants management
+* Logging framework
+* Custom exception handling
+* Prompt management
+* PDF document loading
+* Recursive text chunking
+* Hugging Face embedding service
+* FAISS vector database creation
+* End-to-end indexing pipeline
+* Unit and integration testing
+* Sprint documentation
+* Daily development logs
+* Technical backend documentation
+* Project changelog
+
+At this stage, the RAGFlow AI Platform has a complete **document ingestion and indexing pipeline**. 
+The project is ready to begin **Sprint 04: Retrieval and Question Answering (RAG Pipeline)**, 
+where indexed documents will be retrieved and passed to a Large Language Model for response generation.
+============================================
+Sprint 04 start
+*******************
+User Question
+       │
+       ▼
+RAG Application (app.py)
+       │
+       ▼
+RAG Pipeline
+       │
+       ├──────────────► Retriever
+       │                    │
+       │                    ▼
+       │             FAISS Vector Store
+       │                    │
+       │                    ▼
+       │            Relevant Documents
+       │
+       ▼
+Prompt Template
+       │
+       ▼
+DeepSeek LLM
+       │
+       ▼
+Generated Answer
+       │
+       ▼
+Terminal Response
+====================================================================
+Sprint 04 – Retrieval & Question Answering Pipeline
+Sprint Goal
+
+Convert the indexed FAISS database built in Sprint 03 into a complete
+Retrieval-Augmented Generation (RAG) system capable of answering user questions using a Hugging Face-hosted LLM.
+
+| Step | Activity                  | Status     |
+| ---- | ------------------------- | ---------- |
+| 4.1  | Sprint Planning           | 🔄 Current |
+| 4.2  | Retriever Service         | ⏳ Pending  |
+| 4.3  | LLM Service               | ⏳ Pending  |
+| 4.4  | Retrieval Pipeline        | ⏳ Pending  |
+| 4.5  | RAG Pipeline              | ⏳ Pending  |
+| 4.6  | Terminal Chat Application | ⏳ Pending  |
+| 4.7  | Integration Testing       | ⏳ Pending  |
+| 4.8  | Documentation             | ⏳ Pending  |
+| 4.9  | Code Verification         | ⏳ Pending  |
+| 4.10 | Git Commit                | ⏳ Pending  |
+------------------
+Step 4.1 – Sprint Planning
+Objective
+
+Implement the complete Retrieval-Augmented Generation (RAG) workflow by connecting:
+
+FAISS Vector Store
+Retriever
+Prompt Template
+Hugging Face LLM
+Answer Generation Pipeline
+Scope
+
+This sprint will implement:
+
+Vector Store loading
+Similarity search
+Retriever service
+Hugging Face LLM service
+Retrieval pipeline
+Complete RAG pipeline
+Terminal chat application
+End-to-end testing
+Documentation updates
+Deliverables
+Services
+retriever.py
+llm_service.py
+Pipelines
+retrieval_pipeline.py
+rag_pipeline.py
+Tests
+test_retriever.py
+test_llm_service.py
+test_rag_pipeline.py
+test_chat.py
+Updated test_integration.py
+Documentation
+Sprint04.md
+Day04.md
+Updated 03_Backend_Documentation.md
+Updated CHANGELOG.md
+Architecture After Sprint 04
+                    User Question
+                          │
+                          ▼
+                     Terminal App
+                       (app.py)
+                          │
+                          ▼
+                    RAG Pipeline
+                          │
+          ┌───────────────┴───────────────┐
+          ▼                               ▼
+   Retriever Service               Prompt Template
+          │                               │
+          ▼                               │
+   FAISS Vector Store                     │
+          │                               │
+          ▼                               ▼
+   Retrieved Documents ─────────────► Context
+                                          │
+                                          ▼
+                                 Hugging Face LLM
+                                          │
+                                          ▼
+                                   Generated Answer
+                                          │
+                                          ▼
+                                      User Output
+-----------------------------------
+sprint:4.1
+=========
+backend/app/services/retriever.py
+backend/test_retriever.py
+==================================
+What is inside index.faiss?
+
+It already contains the embeddings of all your chunks.
+
+Chunk 1  ---> Vector A
+Chunk 2  ---> Vector B
+Chunk 3  ---> Vector C
+...
+Chunk 206 ---> Vector Z
+
+These vectors are persisted.
+==================================
+33 PDF documents
+        │
+        ▼
+206 text chunks
+        │
+        ▼
+206 embeddings
+        │
+        ▼
+Stored inside
+backend/vectorstore/
+    ├── index.faiss
+    └── index.pkl
+        │
+        ▼
+retriever.invoke(question)
+        │
+        ▼
+Question → embedding → FAISS search
+        │
+        ▼
+Top 4 matching `Document` objects
+        │
+        ▼
+Passed to the LLM in the next stage (Sprint 04)
+====================
+Question
+      │
+      ▼
+Embed question
+      │
+      ▼
+Search index.faiss
+      │
+      ▼
+Nearest vector IDs
+      │
+      ▼
+Lookup corresponding Documents in index.pkl
+      │
+      ▼
+Return List[Document]
+===============================
+2. index.pkl
+
+This file is created by LangChain, not FAISS.
+
+It stores everything that FAISS does not know about.
+
+Remember:
+
+FAISS only stores vectors.
+
+It has no idea that vector #57 came from
+
+backend/us_census/acsbr-015.pdf
+Page 10
+
+or that the text was
+
+"The American Community Survey collects demographic data..."
+
+That information is stored inside index.pkl.
+
+What is inside index.pkl?
+
+It is a serialized (pickled) Python object containing:
+
+Document Objects
+
+Each Document looks like
+
+Document(
+    page_content="The American Community Survey ...",
+
+    metadata={
+        "source": "backend/us_census/acsbr-015.pdf",
+        "page": 12
+    }
+)
+
+There are hundreds of these.
+
+It also stores the mapping
+
+Vector #0
+↓
+
+Document 0
+
+-------------------
+
+Vector #1
+↓
+
+Document 1
+
+-------------------
+
+Vector #2
+↓
+
+Document 2
+
+This mapping is called the Docstore.
+
+Why do we need it?
+
+Suppose FAISS says
+
+Nearest vector = #127
+
+Without index.pkl, we would only know
+
+Vector #127
+
+But we would have no idea
+
+which PDF?
+which page?
+what text?
+
+So LangChain opens
+
+index.pkl
+
+and retrieves
+
+Vector #127
+
+↓
+
+Document(
+    page_content="American Community Survey ...",
+
+    metadata={
+        source="backend/us_census/acsbr-015.pdf",
+        page=18
+    }
+)
+
+This is exactly what your retriever returns.
+
+Relationship between the two files
+                    save_local()
+
+                         │
+
+         ┌───────────────┴───────────────┐
+
+         ▼                               ▼
+
+   index.faiss                     index.pkl
+
+FAISS Search Index              LangChain Docstore
+
+Stores vectors                  Stores Documents
+
+Stores similarity graph         Stores metadata
+
+Stores nearest neighbors        Stores page_content
+
+Binary format                   Pickle format
+==================================
+sprint:4.1
+=========
+                    config.py
+                         │
+        ┌────────────────┴──────────────┐
+        │                               │
+ EmbeddingService                  LLMService
+        │                               │
+        ▼                               ▼
+ SentenceTransformer          HuggingFace Endpoint
+        │                               │
+        └──────────────┬────────────────┘
+                       │
+                 Used by RAG Chain
+----------------------------------------------------------
+8956104459 : Jai prakash mishra
+-----------
+backend/app/services/llm_service.py
+
+backend/test_llm_service.py
+========================
+sprint:4.3
+=========
+backend/app/services/rag_chain.py
+
+backend/test_rag_chain.py
+
+User Question
+      │
+      ▼
+test_rag_chain.py
+      │
+      ▼
+RAGChainService
+      │
+      ├──────────────► RetrieverService
+      │                    │
+      │                    ▼
+      │              FAISS Vector Store
+      │                    │
+      │                    ▼
+      │            Top-k Relevant Chunks
+      │
+      ├──────────────► Prompt Template
+      │                    │
+      ├──────────────► LLMService
+      │                    │
+      ▼                    ▼
+        ChatHuggingFace (DeepSeek-R1)
+                    │
+                    ▼
+              Final Answer
+==========
+sprint:4.4
+=========
+update prompt.py
+test: test_rag_chain.py
+---------------------------
+Prompt Engineering
+Objective
+
+Improve answer quality by instructing the LLM to:
+
+Answer only from retrieved context.
+Avoid hallucinations.
+Admit when the answer isn't in the documents.
+Produce professional, concise answers.
+Ignore irrelevant information.
+Keep answers readable.
+Files to Update
+backend/
+└── app/
+    └── core/
+        └── prompts.py
+
+** old prompt.py
+--------------
+"""
+Prompt templates used throughout the RAGFlow AI Platform.
+
+Keeping prompts in a single module makes them easier to maintain,
+reuse, and improve without modifying application logic.
+"""
+
+from langchain_core.prompts import ChatPromptTemplate
+
+
+RAG_PROMPT = ChatPromptTemplate.from_template(
+    """
+You are an AI assistant that answers questions only from the supplied context.
+
+Instructions:
+
+- Read the context carefully.
+- If the answer exists in the context, provide a clear and complete response.
+- If the answer cannot be found, say:
+  "I don't have enough information in the provided documents."
+- Do not create or assume facts.
+- Keep the answer concise and accurate.
+
+Context:
+{context}
+
+Question:
+{input}
+
+Answer:
+"""
+)
+----------------------------------------
+updated prompt.py
+---------------
+"""
+Prompt templates used throughout the RAGFlow AI Platform.
+
+This module centralizes all LangChain prompt templates used by the
+application.
+"""
+
+from langchain_core.prompts import ChatPromptTemplate
+
+
+RAG_PROMPT = ChatPromptTemplate.from_template(
+    """
+You are RAGFlow AI, an intelligent document question-answering assistant.
+
+Your task is to answer the user's question ONLY using the supplied context.
+
+=========================
+Rules
+=========================
+
+1. Read the supplied context carefully.
+
+2. Answer ONLY from the supplied context.
+
+3. Never invent facts.
+
+4. Never use outside knowledge.
+
+5. If the answer is not present in the context, reply exactly:
+
+"I could not find the answer in the supplied documents."
+
+6. If multiple pieces of context are relevant, combine them into one clear answer.
+
+7. Do not mention internal implementation details such as:
+   - embeddings
+   - vector database
+   - retrieval
+   - chunks
+   - prompt template
+
+8. Answer in clear professional English.
+
+9. Keep the answer concise but complete.
+
+10. Do not include your reasoning process.
+
+=========================
+Context
+=========================
+
+{context}
+
+=========================
+Question
+=========================
+
+{input}
+
+=========================
+Answer
+=========================
+"""
+)
+
+Ask
+
+Who is the President of India?
+
+Expected output:
+
+I could not find the answer in the supplied documents.
+
+instead of the model using its general knowledge.
+
+
+At the end of Step 4.4, your RAG backend follows a much stronger
+prompt-engineering strategy suitable for production document 
+question-answering systems. The next step will expose this functionality
+through a REST API using FastAPI.
+----------------------------------------------------------
+===========
+Sprint 4.5
+==========
+FastAPI Endpoint
+Objective
+
+Build a production-ready REST API around our RAG pipeline.
+
+The architecture becomes:
+
+                   Client
+      (Browser / Streamlit / React)
+                    │
+                    ▼
+            FastAPI REST API
+                    │
+                    ▼
+              RAGChainService
+          ┌─────────┴─────────┐
+          ▼                   ▼
+     Retriever           Chat LLM
+          │                   │
+          └─────────┬─────────┘
+                    ▼
+              Final Response
+
+================================
+Deliverables for Step 4.5
+
+We'll implement, one file at a time:
+
+✅ request_models.py
+✅ response_models.py
+✅ routes.py
+✅ main.py
+✅ test_api.py
+✅ Run the API with Uvicorn
+✅ Verify via Swagger UI and the test script
+
+backend/
+└── app/
+    └── models/
+        ├── __init__.py
+        └── request_models.py
+
+1. backend/app/models/request_model.py
+---------------------------------
+Why we use a Request Model
+
+Instead of accepting raw JSON like
+
+{
+    "question": "What is ACS?"
+}
+
+FastAPI converts it automatically into
+
+request.question
+
+This provides:
+
+Automatic validation
+Type checking
+Swagger documentation
+Clear error messages
+
+
+No testing yet: This file is only a schema definition, so there is nothing to execute directly.
+
+2. backend/app/models/response_model.py
+---------------------------------------
+Why do we need a Response Model?
+
+Instead of returning an arbitrary Python dictionary like:
+
+return {
+    "answer": answer,
+}
+
+FastAPI uses a response model to:
+
+Validate the response before sending it.
+Automatically generate API documentation (Swagger/OpenAPI).
+Ensure a consistent API contract for frontend applications.
+Improve maintainability and type safety.
+
+
+3. backend/app/api/routes.py
+----------------------------
+What happens when a client calls /ask
+POST /ask
+
+{
+    "question":
+    "What is the American Community Survey?"
+}
+
+↓
+
+FastAPI automatically creates
+
+request.question
+
+↓
+
+chain = rag_service.get_chain()
+
+↓
+
+response = chain.invoke(
+    {
+        "input": request.question,
+    }
+)
+
+↓
+
+returns
+
+QuestionResponse(
+    answer=response["answer"]
+)
+
+↓
+
+JSON
+
+{
+    "answer": "The American Community Survey (ACS)..."
+}
+Why instantiate once?
+
+Notice we create
+
+rag_service = RAGChainService()
+
+outside the endpoint.
+
+This means the service object is created once when the application starts, instead of on every request.
+For our current project, this is acceptable and keeps the code simple.
+In a high-traffic production deployment, we might use FastAPI dependency injection
+or lifespan events to manage long-lived resources more efficiently.
+
+4.ackend/app/main.py
+--------------------------
+
+FastAPI now recommends one lifecycle manager:
+
+@asynccontextmanager
+async def lifespan(app):
+
+Everything before yield
+
+logger.info("Application started.")
+
+runs once when the application starts.
+
+Everything after yield
+
+logger.info("Application stopped.")
+
+runs once when the application shuts down.
+
+Why this is useful later
+
+As the project grows, this is where we'll initialize long-lived resources once instead of recreating them for every request. Examples include:
+
+Loading the FAISS vector store
+Initializing the embedding model
+Initializing the Hugging Face LLM client
+Opening database connections
+Initializing Redis or cache clients
+
+This makes the application more efficient and follows current FastAPI best practices.
+
+This main.py is compatible with the latest FastAPI releases and is suitable for a production-style project. 
+The next step is backend/test_api.py, where we'll verify the /health and /ask endpoints through HTTP requests.
+------------------------------------------------
+5. backend/test_api.py
+-------------------
+terminal 1:
+uvicorn app.main:app --reload --app-dir backend
+check:
+http://127.0.0.1:8000/docs
+
+terminal 2:
+python backend/test_api.py
+
+6. backend/
+└── app/
+    └── utils/
+        └── response_cleaner.py
+---------------------------------
+"""
+Response cleaner.
+
+This module removes internal reasoning blocks and unnecessary
+whitespace from Large Language Model (LLM) responses before they
+are returned to the client.
+"""
+
+import re
+
+from app.core.logger import logger
+
+
+def clean_response(response: str) -> str:
+    """
+    Clean the raw response returned by the language model.
+
+    This function removes:
+    - <think>...</think> reasoning blocks
+    - Leading and trailing whitespace
+
+    Parameters
+    ----------
+    response : str
+        Raw response generated by the language model.
+
+    Returns
+    -------
+    str
+        Cleaned response suitable for the end user.
+    """
+
+    if not response:
+        logger.warning("Received an empty response from the language model.")
+        return ""
+
+    logger.info("Cleaning language model response.")
+
+    # Temporary debugging logs
+    logger.info("Raw response length: %d", len(response))
+    logger.debug("Raw response:\n%s", response)
+
+    cleaned_response = re.sub(
+        pattern=r"<think>.*?</think>",
+        repl="",
+        string=response,
+        flags=re.DOTALL,
+    )
+
+    cleaned_response = cleaned_response.strip()
+
+    # Temporary debugging logs
+    logger.info("Cleaned response length: %d", len(cleaned_response))
+    logger.debug("Cleaned response:\n%s", cleaned_response)
+
+    logger.info("Language model response cleaned successfully.")
+
+    return cleaned_response
+    ------------------
+Then modify rag_chain.py
+
+Locate:
+
+answer = response["answer"]
+
+return answer
+
+Replace with:
+
+from app.utils.response_cleaner import clean_response
+
+answer = clean_response(response["answer"])
+
+return answer
+Project structure becomes
+backend/
+│
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── pipeline/
+│   ├── schemas/
+│   ├── services/
+│   ├── utils/
+│   │   ├── response_cleaner.py
+│   │   └── __init__.py
+│   └── main.py
+Why place it in utils?
+
+This function is not:
+
+a service,
+an API,
+a pipeline component,
+or a schema.
+
+It is a reusable utility that can be applied to responses from any LLM. 
+In future, you can easily extend it to:
+
+remove <answer> tags,
+remove Markdown fences,
+remove extra blank lines,
+strip provider-specific tokens,
+normalize whitespace,
+remove hallucinated citations.
+
+This makes response_cleaner.py the natural home for all response post-processing logic.
+---------
+Now modified the routes.py
+-----------------------
+add: from app.utils.response_cleaner import clean_response
+modify:  answer = clean_response(response["answer"])
+
+7. backend/test_response_cleaner.py
+----------------------------------
+8. run: python backend/test_api.py
+
+==========
+Sprint 4.6
+==========
+Activities for Sprint 4.6
+Create the frontend/ folder.
+Create frontend/app.py.
+Configure the Streamlit page.
+Add a title, sidebar, and footer.
+Create the question input box.
+Call the FastAPI backend using the requests library.
+Display the answer with a spinner.
+Handle connection errors gracefully.
+Test the complete application.
+Update documentation (Sprint04.md, Day04.md, backend documentation, and CHANGELOG.md).
+--------------------
+Create
+frontend/
+│
+├── app.py
+├── __init__.py
+└── assets/
+
+The assets folder will later hold:
+
+logo
+CSS
+images
+icons
+
+---------------
+Why __init__.py?
+
+Even though Streamlit doesn't require it, we include it because:
+
+it makes frontend a Python package,
+it keeps the project structure consistent,
+it allows future imports if you split the UI into multiple modules.
+--------------------------
+1. frontend/app.py
+
+"""
+RAGFlow AI Platform.
+
+Streamlit frontend for interacting with the RAGFlow AI Platform.
+"""
+
+import streamlit as st
+
+
+st.set_page_config(
+    page_title="RAGFlow AI Platform",
+    page_icon="📚",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+page_icon="💬"
+
+st.title("RAGFlow AI Platform")
+
+st.write(
+    """
+    Ask questions about your documents using Retrieval-Augmented Generation (RAG).
+    """
+)
+
+-------
+run: streamlit run frontend/app.py
+--
+You'll see:
+
+Question submitted successfully.
+
+Question:
+
+What is the American Community Survey?
+
+No backend call is made yet.
+-----------------------
+FINAL  app.py
+"""
+RAGFlow AI Platform.
+
+Streamlit frontend for interacting with the RAGFlow AI Platform.
+"""
+
+import requests
+import streamlit as st
+
+
+API_URL = "http://127.0.0.1:8000/api/v1/ask"
+
+
+st.set_page_config(
+    page_title="RAGFlow AI Platform",
+    page_icon="🔎",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+
+# ============================================================
+# Main Page
+# ============================================================
+
+st.title("RAGFlow AI Platform")
+
+st.write(
+    "Ask questions about your documents using "
+    "Retrieval-Augmented Generation (RAG)."
+)
+
+
+# ============================================================
+# Sidebar
+# ============================================================
+
+with st.sidebar:
+
+    st.header("Platform Information")
+
+    st.markdown(
+        """
+        **Application**
+
+        RAGFlow AI Platform
+
+        **Version**
+
+        Sprint 04
+
+        **Backend**
+
+        FastAPI
+
+        **Vector Database**
+
+        FAISS
+
+        **Embedding Model**
+
+        all-mpnet-base-v2
+
+        **LLM**
+
+        DeepSeek-R1
+        """
+    )
+
+
+# ============================================================
+# User Input
+# ============================================================
+
+st.divider()
+
+st.subheader("Ask a Question")
+
+question = st.text_area(
+    label="Question",
+    placeholder="Example: What is the American Community Survey?",
+    height=120,
+)
+
+submit_button = st.button(
+    "Submit",
+    type="primary",
+)
+
+
+# ============================================================
+# Generate Response
+# ============================================================
+
+if submit_button:
+
+    if not question.strip():
+
+        st.warning("Please enter a question.")
+
+    else:
+
+        with st.spinner("Generating response..."):
+
+            try:
+
+                response = requests.post(
+                    API_URL,
+                    json={
+                        "question": question,
+                    },
+                    timeout=120,
+                )
+
+                if response.status_code == 200:
+
+                    result = response.json()
+
+                    st.success(
+                        "Response generated successfully."
+                    )
+
+                    st.divider()
+
+                    st.subheader("Answer")
+
+                    st.write(result["answer"])
+
+                else:
+
+                    st.error(
+                        f"Backend returned HTTP "
+                        f"{response.status_code}"
+                    )
+
+            except requests.exceptions.ConnectionError:
+
+                st.error(
+                    "Unable to connect to the FastAPI backend."
+                )
+
+            except requests.exceptions.Timeout:
+
+                st.error(
+                    "The request timed out."
+                )
+
+            except Exception as error:
+
+                st.exception(error)
+========================================
+
+User
+   │
+   ▼
+Text Area
+   │
+   ▼
+Submit Button
+   │
+   ▼
+HTTP POST
+   │
+   ▼
+http://127.0.0.1:8000/api/v1/ask
+   │
+   ▼
+FastAPI
+   │
+   ▼
+Retriever
+   │
+   ▼
+LLM
+   │
+   ▼
+JSON
+   │
+   ▼
+Streamlit
+=====================
+uv add requests
+
+=============
+Before testing
+
+Start your FastAPI server:
+
+uvicorn app.main:app --reload --app-dir backend
+
+Open a second terminal and run Streamlit:
+
+streamlit run frontend/app.py
+
+-----------
+change backend/main.py
+---------------
+"""
+Main FastAPI application.
+
+This module creates and configures the FastAPI application for the
+RAGFlow AI Platform.
+"""
+
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+
+from app.api.routes import router
+from app.core.config import settings
+from app.core.logger import logger
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Manage application startup and shutdown events.
+
+    Parameters
+    ----------
+    app : FastAPI
+        FastAPI application instance.
+    """
+
+    logger.info("RAGFlow AI Platform started successfully.")
+
+    yield
+
+    logger.info("RAGFlow AI Platform stopped.")
+
+
+app = FastAPI(
+    title=settings.project.name,
+    version=settings.project.version,
+    description=(
+        "Retrieval-Augmented Generation (RAG) platform built with "
+        "FastAPI, LangChain, Hugging Face, and FAISS."
+    ),
+    lifespan=lifespan,
+)
+
+
+app.include_router(
+    router,
+    prefix=settings.api.prefix,
+)
+-----------------------------------------
+Update constants.py
+-------------
+"""
+Application-wide constant values.
+
+Constants defined here remain unchanged during runtime and are shared
+across different modules of the application.
+"""
+
+APP_NAME = "RAGFlow AI Platform"
+APP_VERSION = "1.0.0"
+
+API_VERSION = "v1"
+API_PREFIX = f"/api/{API_VERSION}"
+
+DOCUMENT_DIRECTORY = "backend/us_census"
+VECTORSTORE_DIRECTORY = "backend/vectorstore"
+
+SUPPORTED_DOCUMENT_TYPES = (".pdf",)
+
+EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
+
+LLM_REPOSITORY = "deepseek-ai/DeepSeek-R1-0528"
+LLM_TASK = "text-generation"
+
+# Retrieval Configuration
+DEFAULT_TOP_K = 4
+DEFAULT_SEARCH_TYPE = "similarity"
+
+LOG_FORMAT = (
+    "%(asctime)s | "
+    "%(levelname)s | "
+    "%(name)s | "
+    "%(filename)s:%(lineno)d | "
+    "%(message)s"
+)
+
+LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+APPLICATION_STARTED = "Application started."
+CONFIGURATION_LOADED = "Configuration loaded successfully."
+VECTORSTORE_CREATED = "Vector store created successfully."
+NO_DOCUMENTS_FOUND = "No PDF documents found."
+RAG_READY = "RAG pipeline initialized successfully."
+
+------------------
+Update config.py
+------------------
+"""
+Application configuration.
+
+This module centralizes all configurable values used by the RAGFlow AI
+Platform. Settings are loaded from environment variables or the local
+`.env` file using Pydantic Settings.
+"""
+
+from pydantic import BaseModel
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from app.core.constants import (
+    API_PREFIX,
+    API_VERSION,
+    APP_NAME,
+    APP_VERSION,
+    DOCUMENT_DIRECTORY,
+    EMBEDDING_MODEL,
+    LLM_REPOSITORY,
+    LLM_TASK,
+    LOG_DIRECTORY,
+    VECTORSTORE_DIRECTORY,
+)
+
+
+class ProjectSettings(BaseModel):
+    """General project information."""
+
+    name: str = APP_NAME
+    version: str = APP_VERSION
+    environment: str = "development"
+
+
+class APISettings(BaseModel):
+    """REST API configuration."""
+
+    version: str = API_VERSION
+    prefix: str = API_PREFIX
+
+
+class HuggingFaceSettings(BaseModel):
+    """Hugging Face Hub configuration."""
+
+    api_token: str
+    provider: str = "auto"
+
+
+class EmbeddingSettings(BaseModel):
+    """Embedding model configuration."""
+
+    model_name: str = EMBEDDING_MODEL
+    device: str = "cpu"
+    normalize_embeddings: bool = False
+
+
+class DocumentSettings(BaseModel):
+    """Configuration for document loading and chunking."""
+
+    pdf_directory: str = DOCUMENT_DIRECTORY
+    chunk_size: int = 1000
+    chunk_overlap: int = 200
+
+
+class VectorStoreSettings(BaseModel):
+    """Vector store configuration."""
+
+    directory: str = VECTORSTORE_DIRECTORY
+
+
+class LLMSettings(BaseModel):
+    """Large language model configuration."""
+
+    repository: str = LLM_REPOSITORY
+    task: str = LLM_TASK
+    max_new_tokens: int = 512
+    temperature: float = 0.0
+    repetition_penalty: float = 1.03
+
+
+class LoggingSettings(BaseModel):
+    """Application logging configuration."""
+
+    level: str = "INFO"
+    directory: str = LOG_DIRECTORY
+
+
+class AppSettings(BaseSettings):
+    """Application settings loaded from the environment."""
+
+    HUGGINGFACEHUB_API_TOKEN: str
+
+    project: ProjectSettings = ProjectSettings()
+    api: APISettings = APISettings()
+    embedding: EmbeddingSettings = EmbeddingSettings()
+    document: DocumentSettings = DocumentSettings()
+    vectorstore: VectorStoreSettings = VectorStoreSettings()
+    llm: LLMSettings = LLMSettings()
+    logging: LoggingSettings = LoggingSettings()
+
+    @property
+    def huggingface(self) -> HuggingFaceSettings:
+        """Return the Hugging Face configuration."""
+
+        return HuggingFaceSettings(
+            api_token=self.HUGGINGFACEHUB_API_TOKEN,
+        )
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+
+settings = AppSettings()
+-------------------------------------------
