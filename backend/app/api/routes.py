@@ -5,6 +5,8 @@ This module defines the REST API endpoints exposed by the RAGFlow AI
 Platform.
 """
 
+import sys
+
 from fastapi import APIRouter
 
 from app.core.exception import RAGFlowException
@@ -17,19 +19,20 @@ from app.utils.response_cleaner import clean_response
 router = APIRouter()
 
 rag_service = RAGChainService()
+rag_chain = rag_service.get_chain()
 
 
 @router.get(
     "/health",
     tags=["Health"],
 )
-def health_check() -> dict:
+def health_check() -> dict[str, str]:
     """
     Health check endpoint.
 
     Returns
     -------
-    dict
+    dict[str, str]
         API health status.
     """
 
@@ -61,27 +64,40 @@ def ask_question(
     -------
     QuestionResponse
         Generated answer.
+
+    Raises
+    ------
+    RAGFlowException
+        If question processing fails.
     """
 
     try:
-        logger.info("Received user question.")
+        logger.info("Processing user question.")
 
-        chain = rag_service.get_chain()
-
-        response = chain.invoke(
+        response = rag_chain.invoke(
             {
                 "input": request.question,
             }
         )
 
-        answer = clean_response(response["answer"])
+        answer = clean_response(
+            response["answer"]
+        )
 
-        logger.info("Question answered successfully.")
+        logger.info(
+            "Question answered successfully."
+        )
 
         return QuestionResponse(
             answer=answer,
         )
 
     except Exception as error:
-        logger.exception("Failed to process question.")
-        raise RAGFlowException(error, __import__("sys"))
+        logger.exception(
+            "Failed to process question."
+        )
+
+        raise RAGFlowException(
+            error,
+            sys,
+        ) from error

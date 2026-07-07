@@ -1,311 +1,426 @@
 # Backend Technical Documentation
 
-  Field             Details
-  ----------------- ---------------------------------
-  **Project**       RAGFlow AI Platform
-  **Document**      Backend Technical Documentation
-  **Version**       0.3.0
-  **Updated**       04 July 2026
-  **Prepared By**   Mrityunjay P.
-  **Role**          AI Engineer
+| Field | Details |
+|--------|---------|
+| **Project** | RAGFlow AI Platform |
+| **Document** | Backend Technical Documentation |
+| **Version** | 1.0.0 |
+| **Updated** | 05 July 2026 |
+| **Prepared By** | Mrityunjay Pathak |
+| **Role** | Freelance AI engineering engagement |
 
-------------------------------------------------------------------------
+---
+
+# Table of Contents
+
+1. Overview
+2. Backend Architecture
+3. Core Modules
+4. Service Layer
+5. API Layer
+6. Data Flow
+7. Testing Strategy
+8. Current Implementation Status
+9. Future Enhancements
+10. Conclusion
+
+---
 
 # 1. Overview
 
-This document describes the backend architecture implemented through
-Sprint 03. The backend provides a modular and maintainable foundation
-for a Retrieval-Augmented Generation (RAG) application using LangChain,
-Hugging Face, and FAISS.
+This document describes the backend implementation of the RAGFlow AI Platform.
 
-------------------------------------------------------------------------
+The backend is responsible for document indexing, embedding generation, semantic retrieval, interaction with the Large Language Model (LLM), and exposing REST APIs for the frontend.
+
+The application follows a modular service-based architecture where each component has a single responsibility. LangChain is used to orchestrate the Retrieval-Augmented Generation (RAG) workflow, while FastAPI provides the API layer.
+
+---
 
 # 2. Backend Architecture
 
-    backend/
-└── app/
-    ├── __init__.py
-    │
-    ├── api/
-    │   └── __init__.py
-    │
-    ├── core/
-    │   ├── __init__.py      ← Yes
-    │   ├── config.py
-    │   ├── constants.py
-    │   ├── exception.py
-    │   ├── logger.py
-    │   └── prompts.py
-    │
-    ├── pipeline/
-    │   ├── __init__.py
-    │   └── indexing_pipeline.py
-    │
-    ├── services/
-    │   ├── __init__.py      ← Yes
-    │   ├── document_loader.py
-    │   ├── embedding_service.py
-    │   ├── text_splitter.py
-    │   └── vector_store.py
-    │
-    └── utils/
-        └── __init__.py
-------------------------------------------------------------------------
+```
+backend/
+│
+├── app/
+│   │
+│   ├── api/
+│   │   └── routes.py
+│   │
+│   ├── core/
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── exception.py
+│   │   ├── logger.py
+│   │   └── prompts.py
+│   │
+│   ├── models/
+│   │   ├── request_models.py
+│   │   └── response_models.py
+│   │
+│   ├── pipeline/
+│   │   └── indexing_pipeline.py
+│   │
+│   ├── services/
+│   │   ├── document_loader.py
+│   │   ├── text_splitter.py
+│   │   ├── embedding_service.py
+│   │   ├── vector_store.py
+│   │   ├── retriever.py
+│   │   ├── llm_service.py
+│   │   └── rag_chain.py
+│   │
+│   ├── utils/
+│   │   └── response_cleaner.py
+│   │
+│   └── main.py
+│
+├── test_api.py
+└── tests/
+```
+
+The backend is organized into independent modules that can be developed and tested separately.
+
+---
 
 # 3. Core Modules
 
-## Configuration
+## Configuration (`config.py`)
 
-`config.py`
+Responsible for loading all application settings.
 
-Responsibilities:
+Main responsibilities:
 
--   Load environment variables
--   Centralize project configuration
--   Configure embedding model
--   Configure document processing
--   Configure vector store
--   Configure logging
--   Configure LLM
+- Load environment variables
+- Configure document processing
+- Configure embedding model
+- Configure Hugging Face LLM
+- Configure vector database
+- Configure API settings
+- Configure logging
 
-------------------------------------------------------------------------
+---
 
-## Constants
+## Constants (`constants.py`)
 
-`constants.py`
+Stores reusable constants used throughout the application.
 
-Provides application-wide constants such as:
+Examples include:
 
--   Supported file types
--   Default directories
--   Log names
--   Configuration values
+- Supported file types
+- Default chunk size
+- Chunk overlap
+- Retrieval parameters
+- Default search type
 
-------------------------------------------------------------------------
+---
 
-## Logger
+## Logger (`logger.py`)
 
-`logger.py`
-
-Implements centralized logging.
+Provides centralized logging for the application.
 
 Features:
 
--   Console logging
--   File logging
--   Timestamped messages
--   Common logger shared across the project
+- Console logging
+- File logging
+- Timestamped log entries
+- Shared logger across all modules
 
-------------------------------------------------------------------------
+---
 
-## Exception
+## Exception (`exception.py`)
 
-`exception.py`
-
-Defines the custom `RAGFlowException` class.
+Defines the custom `RAGFlowException`.
 
 Responsibilities:
 
--   Standardized exception handling
--   File name tracking
--   Line number tracking
--   Improved debugging
+- Standardize exception handling
+- Capture file name and line number
+- Simplify debugging
+- Provide consistent error reporting
 
-------------------------------------------------------------------------
+---
 
-## Prompt Templates
+## Prompt Templates (`prompts.py`)
 
-`prompts.py`
+Stores reusable LangChain prompt templates used by the RAG pipeline.
 
-Stores reusable LangChain prompt templates.
+Separating prompts from application logic makes them easier to maintain and update.
 
-------------------------------------------------------------------------
+---
 
 # 4. Service Layer
 
+The service layer contains the core business logic of the application.
+
 ## Document Loader
 
-Loads PDF documents from the configured directory.
-
-Implementation:
-
--   PyPDFDirectoryLoader
+Loads PDF documents using LangChain's `PyPDFDirectoryLoader`.
 
 Output:
 
--   List of LangChain Document objects
+- List of LangChain `Document` objects
 
-------------------------------------------------------------------------
+---
 
 ## Text Splitter
 
-Splits documents into chunks.
-
-Implementation:
-
--   RecursiveCharacterTextSplitter
+Splits documents into smaller chunks using `RecursiveCharacterTextSplitter`.
 
 Configuration:
 
--   Chunk Size
--   Chunk Overlap
+- Chunk size
+- Chunk overlap
 
 Output:
 
--   Chunked documents
+- Chunked documents
 
-------------------------------------------------------------------------
+---
 
 ## Embedding Service
 
-Creates the embedding model.
+Initializes the Hugging Face embedding model.
 
-Implementation:
+Current model:
 
--   HuggingFaceEmbeddings
-
-Current Model:
-
+```
 sentence-transformers/all-mpnet-base-v2
-
-------------------------------------------------------------------------
-
-## Vector Store
-
-Creates and manages FAISS indexes.
+```
 
 Responsibilities:
 
--   Create vector store
--   Save vector store
--   Load vector store
+- Load embedding model
+- Generate document embeddings
 
-Generated Files:
+---
 
--   index.faiss
--   index.pkl
+## Vector Store
 
-------------------------------------------------------------------------
+Creates and manages the FAISS vector database.
+
+Responsibilities:
+
+- Create vector store
+- Save vector store
+- Load vector store
+
+Generated files:
+
+- `index.faiss`
+- `index.pkl`
+
+---
+
+## Retriever Service
+
+Loads the persisted FAISS database and creates a LangChain retriever.
+
+Responsibilities:
+
+- Load vector database
+- Configure similarity search
+- Return retriever instance
+
+---
+
+## LLM Service
+
+Initializes the hosted Hugging Face language model.
+
+Responsibilities:
+
+- Configure Hugging Face endpoint
+- Initialize chat model
+- Provide reusable LLM instance
+
+---
+
+## RAG Chain Service
+
+Builds the complete Retrieval-Augmented Generation pipeline.
+
+Responsibilities:
+
+- Load retriever
+- Load language model
+- Apply prompt template
+- Build retrieval chain
+- Return runnable LangChain chain
+
+---
 
 ## Indexing Pipeline
 
-Coordinates the complete indexing workflow.
+Coordinates the complete document indexing workflow.
 
 Workflow:
 
-    PDF Documents
-          │
-          ▼
-    Document Loader
-          │
-          ▼
-    Text Splitter
-          │
-          ▼
-    Embedding Service
-          │
-          ▼
-    FAISS Vector Store
-          │
-          ▼
-    Save Index
-
-------------------------------------------------------------------------
-
-# 5. Testing Strategy
-
-Each module includes an independent verification script.
-
-Implemented tests:
-
--   test_config.py
--   test_constants.py
--   test_logger.py
--   test_exception.py
--   test_prompts.py
--   test_document_loader.py
--   test_text_splitter.py
--   test_embedding_service.py
--   test_vector_store.py
--   test_indexing_pipeline.py
--   test_integration.py
-
-------------------------------------------------------------------------
-
-# 6. Current Pipeline Status
-
-  Component             Status
-  --------------------- ----------
-  Configuration         Complete
-  Constants             Complete
-  Logger                Complete
-  Exception             Complete
-  Prompt Templates      Complete
-  Document Loader       Complete
-  Text Splitter         Complete
-  Embedding Service     Complete
-  Vector Store          Complete
-  Indexing Pipeline     Complete
-  Integration Testing   Complete
-
-------------------------------------------------------------------------
-
-# 7. Verification Summary
-
-Latest verification confirmed:
-
--   42 PDF documents loaded
--   206 text chunks generated
--   Embedding model initialized successfully
--   FAISS vector database created
--   Vector index persisted to disk
--   Integration tests passed successfully
-
-------------------------------------------------------------------------
-
-# 8. Known Development Notes
-
-## uv Installation
-
-During Sprint 02 the `uv` executable was unavailable after activating
-the project virtual environment because its installation directory was
-missing from the PATH.
-
-The issue was resolved by adding:
-
-``` cmd
-C:\Users\mriyu\.local\bin
+```
+PDF Documents
+      │
+      ▼
+Document Loader
+      │
+      ▼
+Text Splitter
+      │
+      ▼
+Embedding Service
+      │
+      ▼
+FAISS Vector Store
+      │
+      ▼
+Persist Index
 ```
 
-to the user PATH environment variable.
+---
 
-This resolution has been documented for future project setup.
+# 5. API Layer
 
-------------------------------------------------------------------------
+The backend exposes REST APIs using FastAPI.
 
-# 9. Next Development Phase
+### Health Endpoint
 
-Sprint 04 will implement:
+```
+GET /api/v1/health
+```
 
--   Retriever Service
--   Similarity Search
--   Prompt Assembly
--   Hugging Face LLM Integration
--   Complete RAG Question Answering Pipeline
+Returns the current application status.
 
-------------------------------------------------------------------------
+---
+
+### Question Answering Endpoint
+
+```
+POST /api/v1/ask
+```
+
+Accepts a user question and returns an answer generated by the RAG pipeline.
+
+Example request:
+
+```json
+{
+    "question": "What is the American Community Survey?"
+}
+```
+
+Example response:
+
+```json
+{
+    "answer": "..."
+}
+```
+
+---
+
+# 6. Data Flow
+
+The complete backend workflow is shown below.
+
+```
+User Question
+      │
+      ▼
+FastAPI Endpoint
+      │
+      ▼
+RAG Chain
+      │
+      ▼
+Retriever
+      │
+      ▼
+FAISS Vector Store
+      │
+      ▼
+Relevant Document Chunks
+      │
+      ▼
+Prompt Template
+      │
+      ▼
+Hugging Face Hosted LLM
+      │
+      ▼
+Generated Answer
+      │
+      ▼
+API Response
+```
+
+---
+
+# 7. Testing Strategy
+
+Each backend component was verified independently before integration.
+
+Verification scripts include:
+
+- test_config.py
+- test_constants.py
+- test_logger.py
+- test_exception.py
+- test_prompts.py
+- test_document_loader.py
+- test_text_splitter.py
+- test_embedding_service.py
+- test_vector_store.py
+- test_indexing_pipeline.py
+- test_api.py
+
+This approach helped isolate issues and verify each module before building the complete application.
+
+---
+
+# 8. Current Implementation Status
+
+| Component | Status |
+|-----------|--------|
+| Configuration | Complete |
+| Logging | Complete |
+| Exception Handling | Complete |
+| Prompt Templates | Complete |
+| Document Loader | Complete |
+| Text Splitter | Complete |
+| Embedding Service | Complete |
+| Vector Store | Complete |
+| Retriever Service | Complete |
+| LLM Service | Complete |
+| RAG Chain | Complete |
+| FastAPI Backend | Complete |
+| Streamlit Integration | Complete |
+
+---
+
+# 9. Future Enhancements
+
+Planned improvements include:
+
+- Conversation history
+- User authentication
+- Metadata filtering
+- Hybrid search
+- LangGraph agent workflows
+- Docker deployment
+- Cloud deployment
+- CI/CD pipeline
+- Monitoring and observability
+
+---
 
 # 10. Conclusion
 
-The backend foundation and document indexing pipeline are complete. The
-project now has a production-ready architecture capable of loading
-documents, generating embeddings, creating a FAISS vector database, and
-supporting retrieval functionality in the next sprint.
+The backend implementation provides a modular foundation for a Retrieval-Augmented Generation application.
 
-------------------------------------------------------------------------
+The current implementation supports document indexing, semantic search, context-aware question answering, REST APIs, and integration with a Streamlit frontend. The architecture has been designed to simplify future enhancements while keeping each component independent and easy to maintain.
+
+---
 
 **Document Status:** Current
 
-**Version:** 0.3.0
+**Version:** 1.0.0
 
 **End of Document**

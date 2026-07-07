@@ -4,15 +4,21 @@ Retriever service.
 This module loads the persisted FAISS vector store and creates a reusable
 LangChain retriever for similarity search.
 """
+
 import sys
 
 from langchain_community.vectorstores import FAISS
+from langchain_core.vectorstores import VectorStoreRetriever
 
 from app.core.config import settings
+from app.core.constants import (
+    DEFAULT_SEARCH_TYPE,
+    DEFAULT_TOP_K,
+)
 from app.core.exception import RAGFlowException
 from app.core.logger import logger
 from app.services.embedding_service import EmbeddingService
-from app.core.constants import DEFAULT_TOP_K, DEFAULT_SEARCH_TYPE
+
 
 class RetrieverService:
     """Service for loading and using the FAISS retriever."""
@@ -41,15 +47,26 @@ class RetrieverService:
                 allow_dangerous_deserialization=True,
             )
 
-            logger.info("Vector store loaded successfully.")
+            logger.info(
+                "FAISS vector store loaded successfully."
+            )
 
             return vector_store
 
         except Exception as error:
-            logger.exception("Unable to load vector store.")
-            raise RAGFlowException(error, sys)
+            logger.exception(
+                "Unable to load vector store."
+            )
 
-    def get_retriever(self, k: int = DEFAULT_TOP_K):
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error
+
+    def get_retriever(
+        self,
+        k: int = DEFAULT_TOP_K,
+    ) -> VectorStoreRetriever:
         """
         Create a retriever from the FAISS vector store.
 
@@ -60,11 +77,21 @@ class RetrieverService:
 
         Returns
         -------
-        BaseRetriever
-            LangChain retriever object.
+        VectorStoreRetriever
+            Configured LangChain retriever.
+
+        Raises
+        ------
+        RAGFlowException
+            If retriever initialization fails.
         """
 
         try:
+            if k <= 0:
+                raise ValueError(
+                    "Parameter 'k' must be greater than zero."
+                )
+
             vector_store = self.load_vector_store()
 
             retriever = vector_store.as_retriever(
@@ -72,10 +99,19 @@ class RetrieverService:
                 search_kwargs={"k": k},
             )
 
-            logger.info("Retriever initialized successfully.")
+            logger.info(
+                "Retriever initialized successfully (k=%d).",
+                k,
+            )
 
             return retriever
 
         except Exception as error:
-            logger.exception("Retriever initialization failed.")
-            raise RAGFlowException(error, sys) from error
+            logger.exception(
+                "Retriever initialization failed."
+            )
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error

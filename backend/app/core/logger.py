@@ -10,12 +10,14 @@ import logging
 from app.core.config import settings
 from app.core.constants import LOG_DATE_FORMAT, LOG_FORMAT
 
+
 logger = logging.getLogger("ragflow")
 
 if not logger.handlers:
     logger.setLevel(settings.logging.level)
 
     console_handler = logging.StreamHandler()
+    console_handler.setLevel(settings.logging.level)
 
     formatter = logging.Formatter(
         fmt=LOG_FORMAT,
@@ -30,7 +32,12 @@ if not logger.handlers:
 
 
 # Silence noisy third-party libraries
-logging.getLogger("httpx").setLevel(logging.WARNING)
-logging.getLogger("httpcore").setLevel(logging.WARNING)
-logging.getLogger("huggingface_hub").setLevel(logging.WARNING)
-logging.getLogger("urllib3").setLevel(logging.WARNING)
+NOISY_LOGGERS = (
+    "httpx",
+    "httpcore",
+    "huggingface_hub",
+    "urllib3",
+)
+
+for library in NOISY_LOGGERS:
+    logging.getLogger(library).setLevel(logging.WARNING)

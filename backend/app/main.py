@@ -15,21 +15,27 @@ from app.core.logger import logger
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
     """
-    Manage application startup and shutdown events.
+    Manage application startup and shutdown lifecycle events.
 
     Parameters
     ----------
-    app : FastAPI
+    _app : FastAPI
         FastAPI application instance.
     """
 
-    logger.info("RAGFlow AI Platform started successfully.")
+    logger.info(
+        "%s started successfully.",
+        settings.project.name,
+    )
 
     yield
 
-    logger.info("RAGFlow AI Platform stopped.")
+    logger.info(
+        "%s stopped.",
+        settings.project.name,
+    )
 
 
 app = FastAPI(
@@ -41,7 +47,6 @@ app = FastAPI(
     ),
     lifespan=lifespan,
 )
-
 
 app.include_router(
     router,

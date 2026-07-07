@@ -8,7 +8,10 @@ creating and accessing the configured language model.
 
 import sys
 
-from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint
+from langchain_huggingface import (
+    ChatHuggingFace,
+    HuggingFaceEndpoint,
+)
 
 from app.core.config import settings
 from app.core.exception import RAGFlowException
@@ -21,7 +24,7 @@ class LLMService:
     def __init__(self) -> None:
         """Initialize the LLM service."""
 
-        self.llm = self.initialize_llm()
+        self.llm: ChatHuggingFace = self.initialize_llm()
 
     def initialize_llm(self) -> ChatHuggingFace:
         """
@@ -34,7 +37,9 @@ class LLMService:
         """
 
         try:
-            logger.info("Initializing Hugging Face language model.")
+            logger.info(
+                "Initializing Hugging Face language model."
+            )
 
             endpoint = HuggingFaceEndpoint(
                 repo_id=settings.llm.repository,
@@ -50,18 +55,26 @@ class LLMService:
                 ),
             )
 
-            llm = ChatHuggingFace(llm=endpoint)
+            llm = ChatHuggingFace(
+                llm=endpoint,
+            )
 
             logger.info(
-                "Language model initialized: %s",
+                "Language model '%s' initialized successfully.",
                 settings.llm.repository,
             )
 
             return llm
 
         except Exception as error:
-            logger.exception("Language model initialization failed.")
-            raise RAGFlowException(error, sys) from error
+            logger.exception(
+                "Language model initialization failed."
+            )
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error
 
     def get_llm(self) -> ChatHuggingFace:
         """

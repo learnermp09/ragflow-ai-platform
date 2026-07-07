@@ -11,6 +11,12 @@ import re
 from app.core.logger import logger
 
 
+THINK_BLOCK_PATTERN = re.compile(
+    r"<think>.*?</think>",
+    re.DOTALL,
+)
+
+
 def clean_response(response: str) -> str:
     """
     Clean the raw response returned by the language model.
@@ -31,27 +37,27 @@ def clean_response(response: str) -> str:
     """
 
     if not response:
-        logger.warning("Received an empty response from the language model.")
+        logger.warning(
+            "Received an empty response from the language model."
+        )
         return ""
 
     logger.info("Cleaning language model response.")
 
-    # Temporary debugging logs
-    logger.info("Raw response length: %d", len(response))
-    logger.debug("Raw response:\n%s", response)
-
-    cleaned_response = re.sub(
-        pattern=r"<think>.*?</think>",
-        repl="",
-        string=response,
-        flags=re.DOTALL,
+    logger.debug(
+        "Raw response length: %d",
+        len(response),
     )
 
-    cleaned_response = cleaned_response.strip()
+    cleaned_response = THINK_BLOCK_PATTERN.sub(
+        "",
+        response,
+    ).strip()
 
-    # Temporary debugging logs, below two lines are commented out after testing test_api.py
-    # logger.info("Cleaned response length: %d", len(cleaned_response))
-    # logger.debug("Cleaned response:\n%s", cleaned_response)
+    logger.debug(
+        "Cleaned response length: %d",
+        len(cleaned_response),
+    )
 
     logger.info("Language model response cleaned successfully.")
 

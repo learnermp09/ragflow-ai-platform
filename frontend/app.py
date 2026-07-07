@@ -7,9 +7,9 @@ Streamlit frontend for interacting with the RAGFlow AI Platform.
 import requests
 import streamlit as st
 
-
-API_URL = "http://127.0.0.1:8000/api/v1/ask"
-
+BACKEND_HOST = "http://127.0.0.1:8000"
+API_PREFIX = "/api/v1"
+API_URL = f"{BACKEND_HOST}{API_PREFIX}/ask"
 
 st.set_page_config(
     page_title="RAGFlow AI Platform",
@@ -17,7 +17,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
 
 # ============================================================
 # Main Page
@@ -29,7 +28,6 @@ st.write(
     "Ask questions about your documents using "
     "Retrieval-Augmented Generation (RAG)."
 )
-
 
 # ============================================================
 # Sidebar
@@ -47,7 +45,7 @@ with st.sidebar:
 
         **Version**
 
-        Sprint 04
+        1.0.0
 
         **Backend**
 
@@ -59,14 +57,13 @@ with st.sidebar:
 
         **Embedding Model**
 
-        all-mpnet-base-v2
+        sentence-transformers/all-mpnet-base-v2
 
         **LLM**
 
         DeepSeek-R1
         """
     )
-
 
 # ============================================================
 # User Input
@@ -80,13 +77,13 @@ question = st.text_area(
     label="Question",
     placeholder="Example: What is the American Community Survey?",
     height=120,
+    max_chars=1000,
 )
 
 submit_button = st.button(
     "Submit",
     type="primary",
 )
-
 
 # ============================================================
 # Generate Response
@@ -130,7 +127,9 @@ if submit_button:
 
                     st.error(
                         f"Backend returned HTTP "
-                        f"{response.status_code}"
+                        f"{response.status_code}.\n\n"
+                        "Ensure the FastAPI server is running "
+                        "and the API URL is correct."
                     )
 
             except requests.exceptions.ConnectionError:

@@ -75,8 +75,8 @@ LOG_DIRECTORY = "logs"
 # Application Messages
 # ============================================================================
 
-APPLICATION_STARTED = "Application started."
-CONFIGURATION_LOADED = "Configuration loaded successfully."
-VECTORSTORE_CREATED = "Vector store created successfully."
-NO_DOCUMENTS_FOUND = "No PDF documents found."
-RAG_READY = "RAG pipeline initialized successfully."
+# APPLICATION_STARTED = "Application started."
+# CONFIGURATION_LOADED = "Configuration loaded successfully."
+# VECTORSTORE_CREATED = "Vector store created successfully."
+# NO_DOCUMENTS_FOUND = "No PDF documents found."
+# RAG_READY = "RAG pipeline initialized successfully."

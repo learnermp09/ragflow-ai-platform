@@ -5,6 +5,8 @@ This module provides functionality for splitting loaded documents into
 smaller chunks suitable for embedding generation and vector indexing.
 """
 
+import sys
+
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -31,29 +33,47 @@ class TextSplitterService:
         """
         Split documents into smaller chunks.
 
-        Args:
-            documents: List of loaded LangChain documents.
+        Parameters
+        ----------
+        documents : list[Document]
+            Documents to split.
 
-        Returns:
-            List of chunked LangChain documents.
+        Returns
+        -------
+        list[Document]
+            Chunked LangChain documents.
 
-        Raises:
-            RAGFlowException:
-                If document splitting fails.
+        Raises
+        ------
+        RAGFlowException
+            If document splitting fails.
         """
 
         try:
             logger.info("Starting document splitting.")
 
-            chunks = self.text_splitter.split_documents(documents)
+            if not documents:
+                raise ValueError(
+                    "No documents were provided for splitting."
+                )
+
+            chunks = self.text_splitter.split_documents(
+                documents
+            )
 
             logger.info(
-                "Successfully created %d text chunks.",
+                "Created %d text chunk(s).",
                 len(chunks),
             )
 
             return chunks
 
         except Exception as error:
-            logger.exception("Document splitting failed.")
-            raise RAGFlowException(error) from error
+            logger.exception(
+                "Document splitting failed."
+            )
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error

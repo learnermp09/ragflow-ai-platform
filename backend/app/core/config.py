@@ -99,7 +99,11 @@ class AppSettings(BaseSettings):
 
     @property
     def huggingface(self) -> HuggingFaceSettings:
-        """Return the Hugging Face configuration."""
+        """
+        Return the Hugging Face configuration.
+        The API token is loaded directly from the environment while the
+        remaining Hugging Face settings use application defaults.
+        """
 
         return HuggingFaceSettings(
             api_token=self.HUGGINGFACEHUB_API_TOKEN,

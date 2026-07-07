@@ -3994,3 +3994,333 @@ class AppSettings(BaseSettings):
 
 settings = AppSettings()
 -------------------------------------------
+==========
+Sprint 4.7
+==========
+Sprint 4.7 — Production Hardening
+
+We'll focus on making the application production-ready by covering:
+
+Project cleanup and code review
+Startup validation
+Health diagnostics
+Robust exception handling
+Performance timing
+Response metadata
+Improved logging
+Production documentation
+------------------------------------------
+Sprint 4.7.1 — Project Cleanup & Code Review
+=========================================
+Objective
+
+Convert the project from a working prototype into professional-quality code.
+
+This sprint does not add any new functionality. 
+Instead, we will improve maintainability, readability, 
+consistency, and reduce technical debt.
+
+What we'll do
+
+We'll review every module and check for:
+
+1. Import organization
+
+Example:
+
+❌
+
+import os
+from pathlib import Path
+import sys
+
+from fastapi import FastAPI
+import requests
+
+✔
+
+import os
+import sys
+from pathlib import Path
+
+import requests
+from fastapi import FastAPI
+
+Following PEP 8:
+
+Standard library
+Third-party packages
+Local application imports
+2. Remove unused imports
+
+Example:
+
+import os
+import json
+import shutil
+
+If only os is used:
+
+import os
+3. Remove unused variables
+
+Example:
+
+embedding = self.embedding_service.get_embeddings()
+
+If never used:
+
+Delete it.
+
+4. Remove duplicated literals
+
+Example
+
+Instead of
+
+logger.info("Retriever initialized successfully.")
+
+in many files,
+
+prefer
+
+logger.info(RETRIEVER_READY)
+
+where appropriate.
+
+5. Consistent naming
+
+Every service should follow the same style.
+
+Example
+
+EmbeddingService
+
+RetrieverService
+
+LLMService
+
+RAGChainService
+
+Every method:
+
+get_embeddings()
+
+get_retriever()
+
+get_llm()
+
+get_chain()
+
+This is already very good in your project.
+
+6. Docstring consistency
+
+Every class:
+
+class RetrieverService:
+    """
+    Service responsible for...
+    """
+
+Every public function:
+
+def get_retriever(self):
+    """
+    Return configured FAISS retriever.
+
+    Returns
+    -------
+    BaseRetriever
+        FAISS retriever.
+    """
+7. Type hints
+
+Example
+
+Instead of
+
+def ask(question):
+
+Use
+
+def ask(question: str) -> str:
+8. Line length
+
+Keep around 88–100 characters.
+
+Instead of
+
+logger.info("Initializing HuggingFace language model using sentence transformer model")
+
+Split it.
+
+9. Magic numbers
+
+Example
+
+Instead of
+
+k=4
+
+Use
+
+DEFAULT_TOP_K
+
+You've already done this.
+
+10. Eliminate repeated code
+
+Example
+
+If every service has
+
+try:
+    ...
+except Exception as error:
+    logger.exception(...)
+    raise RAGFlowException(...)
+
+Later, we can factor out common patterns if appropriate. For now, keeping explicit handling is acceptable because it improves readability for learners.
+
+Deliverable
+
+By the end of Sprint 4.7.1, we want:
+
+✅ Zero unused imports
+✅ Zero duplicated constants
+✅ Consistent naming
+✅ Consistent logging
+✅ Consistent docstrings
+✅ PEP 8 compliance
+✅ Clear module responsibilities
+How we'll do it
+
+Rather than making sweeping changes all at once, we'll perform a structured code review.
+
+We'll inspect every file one by one, just as a senior engineer would during a pull request.
+
+Review order
+constants.py
+config.py
+logger.py
+exception.py
+prompts.py
+response_cleaner.py
+embedding_service.py
+retriever.py
+llm_service.py
+rag_chain.py
+routes.py
+request_models.py
+response_models.py
+main.py
+frontend/app.py
+
+For each file, we'll answer:
+
+Is the architecture correct?
+Is the code clean?
+Is anything redundant?
+Does it follow PEP 8?
+Would this pass a professional code review?
+Should anything be refactored?
+
+Only after that review will we make targeted improvements.
+This incremental approach mirrors how code reviews are typically
+conducted in professional software teams and will help you understand not just what to change, but why each change improves the codebase.
+----------
+============
+Sprint 4.7.1 — Code Review
+Review order
+
+constants.py
+config.py
+logger.py
+exception.py
+prompts.py
+6. response_cleaner.py
+7.document_loader.py
+embedding_service.py
+retriever.py
+llm_service.py
+rag_chain.py
+routes.py
+request_models.py
+response_models.py
+main.py
+frontend/app.py
+==================
+File 1 — backend/app/core/constants.py
+-------------------------------------
+FILE 2 - backend/app/core/config.py
+-------------------------------------
+FILE 3 - backend/app/core/logger.py
+-----------------------------------
+FILE 4 - backend/app/core/exception.py
+-----------------------------------
+FILE 5 - backend/app/core/prompt.py
+-----------------------------------
+FILE 6 - backend/app/utils/response_cleaner.py
+----------------------------------
+FILE 7 - backend/app/services/document_loader.py
+-----------------------------------
+FILE 8 - backend/app/services/text_splitter.py
+-------------------------------------
+FILE 9 - backend/app/services/embedding_service.py
+------------------------------------
+FILE 10 - backend/app/services/vector_store.py
+---------------------------------------
+FILE 11 - backend/app/services/retriever.py
+-----------------------------------------
+FILE 12 - backend/app/services/llm_service.py
+------------------------------------------
+FILE 13 - backend/app/services/rag_chain.py
+-------------------------------------
+FILE 14 - backend/app/pipelines/indexing_pipeline.py
+------------------------------------
+FILE 15 - backend/app/api/routes.py
+-----------------------------------
+FILE 16 - backend/app/main.py
+---------------------------------
+FILE 17 - backend/app/models/request_models.py
+----------------------------------
+FILE 18 - backend/test_api.py
+------------------------------
+FILE 19 - frontend/app.py
+-------------------------
+FILE 20 -  backend/test_vector_store.py
+-----------------------
+DAY 6
+============
+* Sprint04 documentation
+===================
+Prepare : README.md
+--------------------
+Part	Section	Status
+1	Project Title, Overview & Motivation	🔄 Now
+2	Features	⏳
+3	Technology Stack	⏳
+4	Project Structure	⏳
+5	Architecture & Workflow	⏳
+6	Installation & Usage	⏳
+7	API Reference	⏳
+8	Roadmap, Contributing & License	⏳
+---------------------
+| Sprint        |    Status   | Objective                                                                 |
+| ------------- | :---------: | ------------------------------------------------------------------------- |
+| **Sprint 01** | ✅ Completed | Project Foundation                                                        |
+| **Sprint 02** | ✅ Completed | Backend Foundation                                                        |
+| **Sprint 03** | ✅ Completed | Vector Database & Document Indexing                                       |
+| **Sprint 04** | ✅ Completed | RAG Pipeline, FastAPI Backend & Streamlit Integration                     |
+| **Sprint 05** |  ⏳ Planned  | Performance Optimization & Code Refactoring                               |
+| **Sprint 06** |  ⏳ Planned  | Authentication, Chat History & Session Management                         |
+| **Sprint 07** |  ⏳ Planned  | Advanced Retrieval (Metadata Filtering, Hybrid Search, Re-ranking)        |
+| **Sprint 08** |  ⏳ Planned  | Dockerization & Container Orchestration                                   |
+| **Sprint 09** |  ⏳ Planned  | Cloud Deployment (AWS / Azure / Hugging Face Spaces)                      |
+| **Sprint 10** |  ⏳ Planned  | Logging, Monitoring & Observability                                       |
+| **Sprint 11** |  ⏳ Planned  | Testing, Quality Assurance & CI/CD                                        |
+| **Sprint 12** |  ⏳ Planned  | Security, Performance Tuning & Production Hardening                       |
+| **Sprint 13** |  ⏳ Planned  | Documentation, Developer Experience & Project Showcase                    |
+| **Sprint 14** |  ⏳ Planned  | Advanced RAG Features (Multi-Document QA, Conversational RAG, Evaluation) |
+| **Sprint 15** |  ⏳ Planned  | Final Review, Release & Portfolio Publication                             |

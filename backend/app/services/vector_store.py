@@ -5,6 +5,7 @@ This module is responsible for creating, saving, and loading the FAISS
 vector database used by the RAGFlow AI Platform.
 """
 
+import sys
 from pathlib import Path
 
 from langchain_community.vectorstores import FAISS
@@ -35,21 +36,29 @@ class VectorStoreService:
         """
         Create a FAISS vector store from chunked documents.
 
-        Args:
-            documents:
-                List of chunked LangChain documents.
+        Parameters
+        ----------
+        documents : list[Document]
+            Chunked LangChain documents.
 
-        Returns:
-            FAISS:
-                Initialized FAISS vector store.
+        Returns
+        -------
+        FAISS
+            Initialized FAISS vector store.
 
-        Raises:
-            RAGFlowException:
-                If vector store creation fails.
+        Raises
+        ------
+        RAGFlowException
+            If vector store creation fails.
         """
 
         try:
             logger.info("Creating FAISS vector store.")
+
+            if not documents:
+                raise ValueError(
+                    "No documents were provided for vector store creation."
+                )
 
             embeddings = (
                 self.embedding_service.get_embeddings()
@@ -61,7 +70,8 @@ class VectorStoreService:
             )
 
             logger.info(
-                "FAISS vector store created successfully."
+                "FAISS vector store created with %d document chunk(s).",
+                len(documents),
             )
 
             return vectorstore
@@ -70,7 +80,11 @@ class VectorStoreService:
             logger.exception(
                 "Vector store creation failed."
             )
-            raise RAGFlowException(error) from error
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error
 
     def save_vectorstore(
         self,
@@ -79,13 +93,15 @@ class VectorStoreService:
         """
         Save the vector store to disk.
 
-        Args:
-            vectorstore:
-                FAISS vector store instance.
+        Parameters
+        ----------
+        vectorstore : FAISS
+            FAISS vector store instance.
 
-        Raises:
-            RAGFlowException:
-                If saving fails.
+        Raises
+        ------
+        RAGFlowException
+            If saving fails.
         """
 
         try:
@@ -101,7 +117,7 @@ class VectorStoreService:
             )
 
             logger.info(
-                "Vector store saved to %s",
+                "Vector store saved to '%s'.",
                 self.vectorstore_directory,
             )
 
@@ -109,23 +125,35 @@ class VectorStoreService:
             logger.exception(
                 "Failed to save vector store."
             )
-            raise RAGFlowException(error) from error
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error
 
     def load_vectorstore(self) -> FAISS:
         """
         Load the FAISS vector store from disk.
 
-        Returns:
-            FAISS:
-                Loaded vector store.
+        Returns
+        -------
+        FAISS
+            Loaded FAISS vector store.
 
-        Raises:
-            RAGFlowException:
-                If loading fails.
+        Raises
+        ------
+        RAGFlowException
+            If loading fails.
         """
 
         try:
-            logger.info("Loading vector store.")
+            logger.info("Loading FAISS vector store.")
+
+            if not self.vectorstore_directory.is_dir():
+                raise FileNotFoundError(
+                    f"Vector store directory not found: "
+                    f"{self.vectorstore_directory}"
+                )
 
             embeddings = (
                 self.embedding_service.get_embeddings()
@@ -140,7 +168,7 @@ class VectorStoreService:
             )
 
             logger.info(
-                "Vector store loaded successfully."
+                "FAISS vector store loaded successfully."
             )
 
             return vectorstore
@@ -149,4 +177,8 @@ class VectorStoreService:
             logger.exception(
                 "Failed to load vector store."
             )
-            raise RAGFlowException(error) from error
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error

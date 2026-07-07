@@ -1,335 +1,289 @@
-// A Project Charter is a business document, not a technical document. It is typically written and approved before any development begins. It answers why the project exists, what it will deliver, who is involved, when it is expected to be completed, and how success will be measured.//
-
 # Project Charter
 
-| Field | Details |
-|--------|---------|
-| **Project Name** | RAGFlow AI Platform |
-| **Project Version** | 1.0.0 |
-| **Document Version** | 1.0.0 |
-| **Document Status** | Approved |
-| **Prepared By** | Mrityunjay Pathak |
-| **Role** | AI Engineer |
-| **Repository** | ragflow-ai-platform |
-| **Project Start Date** | 03 July 2026 |
-| **Last Updated** | 03 July 2026 |
+**Project Name:** RAGFlow AI Platform
+
+**Project Type:** End-to-End Retrieval-Augmented Generation (RAG) Application
+
+**Project Owner:** **End Client**
+
+**Developed By:** **Mrityunjay Pathak**
+
+**Project Duration:** Sprint-Based Development
+
+**Current Status:** Sprint 04 Completed
+
+**Version:** 1.0.0
 
 ---
 
-# Revision History
+# 1. Project Purpose
 
-| Version | Date | Author | Description |
-|----------|------------|--------------|---------------------------------------------|
-| 1.0.0 | 03 July 2026 | Mrityunjay Pathak | Initial release of the Project Charter. |
+The purpose of this project is to design and develop a modular Retrieval-Augmented Generation (RAG) application that enables users to ask questions about their documents using natural language.
 
----
+The solution leverages **LangChain** to orchestrate document loading, text splitting, embedding generation, semantic retrieval, prompt construction, and interaction with a hosted Large Language Model (LLM). Document retrieval is powered by a FAISS vector database, enabling the language model to generate responses grounded in the retrieved document context instead of relying solely on its internal knowledge.
 
-# Table of Contents
-
-1. Executive Summary
-2. Business Problem
-3. Business Objective
-4. Project Scope
-5. Deliverables
-6. Stakeholders
-7. Target Users
-8. Technology Stack
-9. High-Level Architecture
-10. Project Milestones
-11. Assumptions
-12. Constraints
-13. Risks
-14. Success Criteria
-15. Project Governance
-16. Change Management
-17. Approval
+The project demonstrates how modern AI applications can be designed using open-source technologies while following clean software engineering principles and modular architecture.
 
 ---
 
-# 1. Executive Summary
+# 2. Project Background
 
-The RAGFlow AI Platform is a cloud-hosted Retrieval-Augmented Generation (RAG) application designed to provide accurate, context-aware responses to user questions by combining document retrieval with Large Language Models (LLMs).
+The architecture presented in this repository is based on work carried out during a freelance AI engineering engagement.
 
-The application enables users to upload and query document collections through a modern web interface while ensuring that responses are grounded in the supplied knowledge base.
+To respect client confidentiality, all proprietary documents, prompts, credentials, configurations, business logic, and datasets have been removed or replaced with publicly available data.
 
-The system follows a modular architecture that separates the frontend, backend, retrieval engine, vector database, and deployment infrastructure. This design simplifies maintenance, improves scalability, and supports future enhancements.
+Publicly available U.S. Census Bureau documents are included solely to demonstrate the complete Retrieval-Augmented Generation workflow.
 
-The application will be hosted entirely in the cloud, requiring no local infrastructure after deployment.
-
----
-
-# 2. Business Problem
-
-Organizations often maintain large collections of PDF documents that contain valuable information but are difficult to search efficiently.
-
-Traditional keyword-based search methods frequently return incomplete or irrelevant results because they do not understand the semantic meaning of user questions.
-
-The client requires an AI-powered solution capable of:
-
-- Understanding natural language questions.
-- Retrieving relevant document content.
-- Generating accurate, context-aware responses.
-- Providing an intuitive web interface.
-- Operating without manual intervention after deployment.
+This repository showcases the overall system architecture, engineering approach, and implementation practices without exposing any client-specific information.
 
 ---
 
-# 3. Business Objective
+# 3. Business Problem
+
+Large Language Models possess strong reasoning capabilities but cannot reliably answer questions about organization-specific documents without access to those documents.
+
+Organizations often require AI systems capable of:
+
+- Searching internal knowledge bases
+- Retrieving relevant document content
+- Generating context-aware responses
+- Reducing hallucinations
+- Keeping proprietary knowledge outside the language model
+
+This project addresses these challenges by implementing a Retrieval-Augmented Generation pipeline using **LangChain**, **FAISS**, and **Hugging Face**.
+
+---
+
+# 4. Project Objectives
 
 The primary objectives of this project are to:
 
-- Develop a production-ready Retrieval-Augmented Generation platform.
-- Improve accessibility of organizational knowledge.
-- Reduce the time required to locate relevant information.
-- Deliver a scalable and maintainable cloud-native solution.
-- Provide an intuitive user experience for both technical and non-technical users.
+- Build a complete Retrieval-Augmented Generation application using LangChain.
+- Develop a modular and maintainable software architecture.
+- Enable document-based semantic question answering.
+- Separate document indexing, retrieval, inference, API, and UI into reusable services.
+- Demonstrate production-oriented software engineering practices.
 
 ---
 
-# 4. Project Scope
+# 5. Project Scope
 
 ## In Scope
 
-The project includes:
+- PDF document ingestion
+- Document chunking
+- Embedding generation
+- FAISS vector database
+- Semantic similarity retrieval
+- LangChain Retrieval-Augmented Generation pipeline
+- Hugging Face hosted language model
+- Prompt engineering
+- FastAPI REST APIs
+- Streamlit frontend
+- Configuration management
+- Structured logging
+- Exception handling
+- Project documentation
 
-- PDF document ingestion.
-- Document preprocessing.
-- Text chunking.
-- Embedding generation.
-- FAISS vector database creation.
-- Semantic document retrieval.
-- Large Language Model integration using Hugging Face.
-- FastAPI backend development.
-- Streamlit frontend development.
-- Docker containerization.
-- GitHub version control.
-- Deployment to Render.
-- Deployment to Streamlit Community Cloud.
-- Technical documentation.
-- User documentation.
-- Maintenance documentation.
+---
 
 ## Out of Scope
 
-The following items are not included in the initial release:
+The following capabilities are not included in the current implementation:
 
-- User authentication.
-- Multi-user access control.
-- Database persistence for chat history.
-- Administrative dashboard.
-- PDF upload through the web interface.
-- Real-time collaborative features.
-- Mobile application.
+- User authentication
+- Multi-user support
+- Database persistence
+- Conversation history
+- Role-based access control
+- Docker deployment
+- Cloud deployment
+- Monitoring dashboards
+- CI/CD pipeline
 
----
-
-# 5. Project Deliverables
-
-The project will deliver the following components.
-
-## Application
-
-- FastAPI Backend
-- Streamlit Frontend
-- Retrieval-Augmented Generation Engine
-- FAISS Vector Database
-- Hugging Face LLM Integration
-
-## Documentation
-
-- Project Charter
-- Project Overview
-- System Architecture
-- Backend Documentation
-- Frontend Documentation
-- API Documentation
-- Deployment Guide
-- User Manual
-- Maintenance Guide
-- Troubleshooting Guide
-- Developer Guide
-
-## Deployment
-
-- GitHub Repository
-- Render Backend Deployment
-- Streamlit Cloud Deployment
-- Docker Configuration
+These capabilities are planned for future development.
 
 ---
 
-# 6. Stakeholders
+# 6. Project Deliverables
 
-| Role | Responsibility |
-|------|----------------|
-| Client | Defines business requirements and approves project deliverables. |
-| Project Manager | Oversees project planning, scope, timeline, and communication. |
-| AI Engineer | Designs and develops the application architecture and implementation. |
-| End Users | Use the application to query document collections. |
+The project delivers:
 
----
-
-# 7. Target Users
-
-The primary users of the application include:
-
-- Business professionals.
-- Researchers.
-- Analysts.
-- Students.
-- Knowledge workers.
-- Technical staff.
-
-The application is intended for users located primarily in the United States.
+- Modular Python codebase
+- LangChain-based RAG pipeline
+- FastAPI backend
+- Streamlit frontend
+- FAISS vector database
+- Hugging Face hosted LLM integration
+- Document indexing pipeline
+- REST APIs
+- Verification scripts
+- Technical documentation
 
 ---
 
-# 8. Technology Stack
+# 7. Technology Stack
 
-| Layer | Technology |
-|---------|------------|
-| Programming Language | Python 3.11+ |
+| Category | Technology |
+|-----------|------------|
+| Programming Language | Python |
+| LLM Orchestration | LangChain |
 | Backend Framework | FastAPI |
 | Frontend Framework | Streamlit |
-| LLM Provider | Hugging Face |
-| AI Framework | LangChain |
+| Embedding Model | Hugging Face Embeddings |
+| Large Language Model | Hugging Face Hosted Inference API |
 | Vector Database | FAISS |
-| Embedding Model | sentence-transformers/all-mpnet-base-v2 |
-| Containerization | Docker |
-| Version Control | GitHub |
-| Backend Hosting | Render |
-| Frontend Hosting | Streamlit Community Cloud |
-| Dependency Management | uv |
-| Environment Management | python-dotenv |
+| Configuration Management | Pydantic Settings |
+| Data Validation | Pydantic |
+| Logging | Python Logging |
+| Development Environment | Virtual Environment |
 
 ---
 
-# 9. High-Level Architecture
+# 8. High-Level Architecture
 
-The solution follows a layered architecture.
-
+```text
+                         PDF Documents
+                               │
+                               ▼
+                 LangChain Document Loader
+                               │
+                               ▼
+        RecursiveCharacterTextSplitter (LangChain)
+                               │
+                               ▼
+             Hugging Face Embedding Model
+                               │
+                               ▼
+                     FAISS Vector Store
+                               │
+                               ▼
+                  LangChain Retriever
+                               │
+                ┌──────────────┴──────────────┐
+                ▼                             ▼
+      LangChain Prompt Template      User Question
+                │                             │
+                └──────────────┬──────────────┘
+                               ▼
+          Hugging Face Hosted Language Model
+                               │
+                               ▼
+                    Response Cleaning Utility
+                               │
+                 ┌─────────────┴─────────────┐
+                 ▼                           ▼
+          FastAPI REST API            Streamlit UI
 ```
-Internet Users
-        │
-        ▼
-Streamlit Frontend
-        │
-        ▼
-FastAPI Backend
-        │
-        ▼
-Retrieval Engine
-        │
-        ▼
-FAISS Vector Store
-        │
-        ▼
-Hugging Face LLM
-```
-
-This architecture promotes modularity, maintainability, and future scalability.
 
 ---
 
-# 10. Project Milestones
+# 9. Sprint Roadmap
 
-| Milestone | Description |
-|------------|-------------|
-| Project Planning | Project initialization and documentation. |
-| Backend Foundation | Configuration and application setup. |
-| Vector Database | Document ingestion and embedding generation. |
-| Retrieval Engine | RAG pipeline implementation. |
-| API Development | FastAPI REST API implementation. |
-| Frontend Development | Streamlit user interface. |
-| Dockerization | Containerization of backend services. |
-| Cloud Deployment | Deployment to Render and Streamlit Community Cloud. |
-| Project Delivery | Final documentation and client handover. |
-
----
-
-# 11. Assumptions
-
-The project assumes that:
-
-- The Hugging Face API service remains available.
-- The client provides the required PDF documents.
-- Internet connectivity is available for hosted services.
-- GitHub, Render, and Streamlit Community Cloud remain accessible.
-- Required API credentials are supplied by the client.
+| Sprint | Status | Objective |
+|---------|:------:|-----------|
+| Sprint 01 | ✅ Completed | Project Foundation |
+| Sprint 02 | ✅ Completed | Backend Foundation |
+| Sprint 03 | ✅ Completed | Vector Database & Document Indexing |
+| Sprint 04 | ✅ Completed | RAG Pipeline, FastAPI Backend & Streamlit Integration |
+| Sprint 05 | ⏳ Planned | Performance Optimization & Code Refactoring |
+| Sprint 06 | ⏳ Planned | Authentication, Chat History & Session Management |
+| Sprint 07 | ⏳ Planned | Advanced Retrieval (Metadata Filtering, Hybrid Search & Re-ranking) |
+| Sprint 08 | ⏳ Planned | Dockerization & Containerization |
+| Sprint 09 | ⏳ Planned | Cloud Deployment |
+| Sprint 10 | ⏳ Planned | Logging, Monitoring & Observability |
+| Sprint 11 | ⏳ Planned | Testing, Quality Assurance & CI/CD |
+| Sprint 12 | ⏳ Planned | Security & Production Hardening |
+| Sprint 13 | ⏳ Planned | Documentation & Developer Experience |
+| Sprint 14 | ⏳ Planned | Advanced RAG Features |
+| Sprint 15 | ⏳ Planned | Final Release & Portfolio Publication |
 
 ---
 
-# 12. Constraints
+# 10. Current Project Status
 
-The project operates under the following constraints:
+At the completion of Sprint 04, the application supports:
 
-- Cloud hosting limitations imposed by free or selected service plans.
-- Hugging Face API rate limits.
-- Internet dependency for hosted inference.
-- Initial implementation focuses exclusively on PDF document collections.
+- PDF document ingestion
+- Automatic document chunking
+- Embedding generation using Hugging Face
+- FAISS vector indexing
+- Semantic similarity retrieval
+- LangChain Retrieval-Augmented Generation pipeline
+- Hugging Face hosted language model integration
+- Prompt-based context-aware response generation
+- FastAPI REST APIs
+- Streamlit web application
+- End-to-end document question answering
+
+---
+
+# 11. Success Criteria
+
+The project will be considered successful when it:
+
+- Successfully indexes PDF documents.
+- Retrieves relevant document context using semantic search.
+- Generates accurate, context-aware responses.
+- Exposes REST APIs for inference.
+- Provides a functional Streamlit interface.
+- Maintains a modular and extensible architecture.
+- Demonstrates clean software engineering practices.
+
+---
+
+# 12. Assumptions
+
+The project assumes:
+
+- Python is installed.
+- Required dependencies are available.
+- A valid Hugging Face API token is configured.
+- Source documents are available for indexing.
+- Internet connectivity is available for hosted model inference.
 
 ---
 
 # 13. Risks
 
-| Risk | Mitigation Strategy |
-|------|---------------------|
-| API rate limits | Implement caching and monitor usage. |
-| Service downtime | Add health monitoring and retry mechanisms. |
-| Large document collections | Optimize chunking and retrieval parameters. |
-| Dependency updates | Use version-controlled dependency management with uv. |
+Potential risks include:
+
+- Hosted inference API rate limits.
+- Response latency from hosted language models.
+- Retrieval quality depending on chunking strategy.
+- Large document collections increasing indexing time.
+- Changes in third-party libraries and APIs.
 
 ---
 
-# 14. Success Criteria
+# 14. Future Enhancements
 
-The project will be considered successful when:
+Future development may include:
 
-- The application is accessible through a public web interface.
-- Users can query PDF documents successfully.
-- Responses are generated using document context.
-- Backend services operate reliably in the cloud.
-- Documentation is complete and accurate.
-- Deployment can be reproduced using project documentation.
-
----
-
-# 15. Project Governance
-
-The project follows a structured software development lifecycle consisting of:
-
-1. Planning
-2. Design
-3. Development
-4. Testing
-5. Documentation
-6. Deployment
-7. Maintenance
-
-Each completed phase will be documented and committed to version control.
+- Conversational memory
+- Metadata filtering
+- Hybrid retrieval
+- Document metadata indexing
+- LangGraph-based agent workflows
+- Docker deployment
+- Cloud deployment
+- User authentication
+- Conversation history
+- Evaluation framework
+- Multiple vector database support
+- CI/CD pipeline
+- Monitoring and observability
 
 ---
 
-# 16. Change Management
+# 15. Document Information
 
-All project changes will be managed through Git version control.
-
-Every significant modification will include:
-
-- Source code update.
-- Documentation update.
-- CHANGELOG update.
-- Git commit with a descriptive message.
-- Repository synchronization with GitHub.
-
----
-
-# 17. Approval
-
-This Project Charter establishes the objectives, scope, responsibilities, and governance framework for the RAGFlow AI Platform project.
-
-Approval of this document authorizes the project team to proceed with design, development, testing, deployment, and documentation activities in accordance with the defined scope and objectives.
-
----
-
-**End of Document**
+| Item | Details |
+|------|---------|
+| Document | Project Charter |
+| Project | RAGFlow AI Platform |
+| Version | 1.0.0 |
+| Prepared By | **Mrityunjay Pathak** |
+| Repository Type | Portfolio Project (Sanitized Freelance Implementation) |
+| Last Updated | Sprint 04 Completion |
+| Document Status | Approved |

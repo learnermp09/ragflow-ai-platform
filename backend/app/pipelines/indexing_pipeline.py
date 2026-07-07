@@ -21,6 +21,8 @@ Build FAISS Index
 Save Vector Store
 """
 
+import sys
+
 from langchain_community.vectorstores import FAISS
 
 from app.core.exception import RAGFlowException
@@ -34,7 +36,7 @@ class IndexingPipeline:
     """Pipeline responsible for indexing project documents."""
 
     def __init__(self) -> None:
-        """Initialize indexing pipeline."""
+        """Initialize the indexing pipeline."""
 
         self.document_loader = DocumentLoader()
         self.text_splitter = TextSplitterService()
@@ -47,7 +49,12 @@ class IndexingPipeline:
         Returns
         -------
         FAISS
-            Generated vector database.
+            Generated FAISS vector store.
+
+        Raises
+        ------
+        RAGFlowException
+            If any stage of the indexing pipeline fails.
         """
 
         try:
@@ -56,15 +63,15 @@ class IndexingPipeline:
             documents = self.document_loader.load_documents()
 
             chunks = self.text_splitter.split_documents(
-                documents
+                documents,
             )
 
             vectorstore = self.vector_store.create_vectorstore(
-                chunks
+                chunks,
             )
 
             self.vector_store.save_vectorstore(
-                vectorstore
+                vectorstore,
             )
 
             logger.info(
@@ -77,4 +84,8 @@ class IndexingPipeline:
             logger.exception(
                 "Indexing pipeline failed."
             )
-            raise RAGFlowException(error) from error
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error

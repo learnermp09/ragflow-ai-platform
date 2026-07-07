@@ -5,6 +5,7 @@ This module initializes the Hugging Face embedding model used by the
 RAGFlow AI Platform. The embedding model converts text chunks into
 dense vector representations for vector database indexing.
 """
+
 import sys
 
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -23,33 +24,43 @@ class EmbeddingService:
         try:
             logger.info("Initializing embedding model.")
 
-            self.embeddings = HuggingFaceEmbeddings(
-                model_name=settings.embedding.model_name,
-                model_kwargs={
-                    "device": settings.embedding.device,
-                },
-                encode_kwargs={
-                    "normalize_embeddings": (
-                        settings.embedding.normalize_embeddings
-                    ),
-                },
+            self.embeddings: HuggingFaceEmbeddings = (
+                HuggingFaceEmbeddings(
+                    model_name=settings.embedding.model_name,
+                    model_kwargs={
+                        "device": settings.embedding.device,
+                    },
+                    encode_kwargs={
+                        "normalize_embeddings": (
+                            settings.embedding.normalize_embeddings
+                        ),
+                    },
+                )
             )
 
             logger.info(
-                "Embedding model initialized: %s",
+                "Embedding model '%s' initialized successfully.",
                 settings.embedding.model_name,
             )
 
         except Exception as error:
-            logger.exception("Embedding model initialization failed.")
-            raise RAGFlowException(error, sys) from error
+            logger.exception(
+                "Embedding model initialization failed."
+            )
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error
 
     def get_embeddings(self) -> HuggingFaceEmbeddings:
         """
         Return the configured embedding model.
 
-        Returns:
-            HuggingFaceEmbeddings: Initialized embedding model.
+        Returns
+        -------
+        HuggingFaceEmbeddings
+            Initialized embedding model.
         """
 
         return self.embeddings

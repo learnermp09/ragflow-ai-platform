@@ -6,8 +6,8 @@
 | **Project Version** | 1.0.0 |
 | **Document Version** | 1.0.0 |
 | **Document Status** | Approved |
-| **Prepared By** | Mrityunjay P. |
-| **Role** | AI Engineer |
+| **Prepared By** | Mrityunjay Pathak |
+| **Role** | Freelance AI engineering engagement |
 | **Repository** | ragflow-ai-platform |
 | **Project Start Date** | 03 July 2026 |
 | **Last Updated** | 03 July 2026 |
@@ -17,8 +17,8 @@
 # Revision History
 
 | Version | Date | Author | Description |
-|----------|------------|--------------|-------------------------------------------|
-| 1.0.0 | 03 July 2026 | Mrityunjay P. | Initial release of the Project Overview document. |
+|----------|------------|--------------------|-------------------------------------------|
+| 1.0.0 | 03 July 2026 | Mrityunjay Pathak | Initial release of the Project Overview document. |
 
 ---
 
@@ -44,37 +44,37 @@
 
 # 1. Introduction
 
-The RAGFlow AI Platform is a cloud-based Retrieval-Augmented Generation (RAG) application that enables users to interact with PDF documents using natural language. Instead of manually searching through lengthy documents, users can ask questions in plain English and receive context-aware responses generated using a Large Language Model (LLM).
+The RAGFlow AI Platform is an end-to-end Retrieval-Augmented Generation (RAG) application that enables users to ask questions about PDF documents using natural language.
 
-The application combines semantic document retrieval with generative artificial intelligence to improve the accuracy and relevance of responses while ensuring that answers are grounded in the contents of the supplied document collection.
+The application uses **LangChain** to orchestrate document loading, text splitting, semantic retrieval, prompt construction, and interaction with a hosted Large Language Model (LLM). Instead of relying only on the model's internal knowledge, answers are generated using relevant information retrieved from the indexed documents.
 
-The solution follows a modular architecture consisting of a FastAPI backend, a Streamlit frontend, a FAISS vector database, and Hugging Face hosted language models.
+The current implementation includes a FastAPI backend, a Streamlit frontend, a FAISS vector database, and Hugging Face hosted language models. The architecture has been designed to support future enhancements such as cloud deployment, authentication, and advanced retrieval techniques.
 
 ---
 
 # 2. Project Description
 
-The primary purpose of the RAGFlow AI Platform is to transform static PDF documents into an intelligent, searchable knowledge base.
+The primary purpose of the RAGFlow AI Platform is to convert collections of PDF documents into an intelligent knowledge base that can be queried using natural language.
 
-The application processes PDF documents, converts their contents into vector embeddings, stores them in a FAISS vector database, retrieves the most relevant document fragments based on user queries, and generates natural language responses using a Large Language Model.
+During indexing, documents are loaded, split into smaller chunks, converted into vector embeddings, and stored in a FAISS vector database. When a user submits a question, the application retrieves the most relevant document chunks and passes them to a hosted Large Language Model through LangChain to generate a context-aware response.
 
-The system is designed to be modular, scalable, maintainable, and suitable for deployment in a cloud environment.
+The application follows a modular architecture that separates document processing, retrieval, inference, API development, and the user interface into independent services, making the system easier to maintain and extend.
 
 ---
 
 # 3. Business Problem
 
-Organizations often maintain extensive collections of PDF documents containing policies, reports, manuals, research papers, and other critical information.
+Organizations often manage large collections of PDF documents such as policies, reports, manuals, research papers, and technical documentation.
 
-Traditional keyword-based search methods frequently produce incomplete or irrelevant results because they rely on exact word matching rather than semantic understanding.
+Traditional keyword-based search methods frequently return incomplete or irrelevant results because they depend on exact word matching rather than understanding the meaning of a user's question.
 
-This leads to:
+This often leads to:
 
-1. Increased time spent locating information.
-2. Reduced productivity.
+1. Increased time spent searching for information.
+2. Lower productivity.
 3. Inconsistent search results.
 4. Poor user experience.
-5. Difficulty extracting meaningful information from large document collections.
+5. Difficulty finding relevant information in large document collections.
 
 ---
 
@@ -82,18 +82,18 @@ This leads to:
 
 The RAGFlow AI Platform addresses these challenges by combining semantic search with Large Language Models.
 
-The application performs the following operations:
+The application performs the following steps:
 
 1. Loads PDF documents.
 2. Splits documents into manageable text chunks.
-3. Converts text chunks into vector embeddings.
+3. Generates vector embeddings using Hugging Face.
 4. Stores embeddings in a FAISS vector database.
-5. Retrieves the most relevant document chunks for each user query.
-6. Sends the retrieved context to a Large Language Model.
-7. Generates accurate, context-aware responses.
-8. Presents responses through a user-friendly Streamlit interface.
+5. Retrieves relevant document chunks using LangChain.
+6. Builds a prompt using the retrieved context.
+7. Generates a context-aware response using a hosted Hugging Face language model.
+8. Returns the response through FastAPI and displays it in the Streamlit interface.
 
-This approach significantly improves the quality and relevance of generated answers.
+This approach improves both the relevance and accuracy of generated answers while reducing hallucinations.
 
 ---
 
@@ -101,13 +101,13 @@ This approach significantly improves the quality and relevance of generated answ
 
 The primary objectives of the project are:
 
-1. Develop a production-ready Retrieval-Augmented Generation platform.
+1. Build a modular Retrieval-Augmented Generation application.
 2. Improve access to information stored in PDF documents.
-3. Provide fast and accurate semantic search capabilities.
-4. Deliver an intuitive web-based user interface.
-5. Ensure modular and maintainable application architecture.
-6. Support cloud-native deployment.
-7. Maintain comprehensive technical documentation throughout the project lifecycle.
+3. Demonstrate semantic search using vector embeddings.
+4. Provide REST APIs through FastAPI.
+5. Develop a simple and user-friendly interface using Streamlit.
+6. Follow clean software engineering practices.
+7. Maintain complete technical documentation throughout the project lifecycle.
 
 ---
 
@@ -115,7 +115,7 @@ The primary objectives of the project are:
 
 ## In Scope
 
-The project includes:
+The project currently includes:
 
 1. PDF document ingestion.
 2. Document preprocessing.
@@ -123,41 +123,46 @@ The project includes:
 4. Embedding generation.
 5. FAISS vector database creation.
 6. Semantic document retrieval.
-7. Hugging Face LLM integration.
-8. FastAPI backend development.
-9. Streamlit frontend development.
-10. Docker containerization.
-11. Deployment to Render.
-12. Deployment to Streamlit Community Cloud.
-13. Project documentation.
+7. LangChain Retrieval-Augmented Generation pipeline.
+8. Hugging Face hosted LLM integration.
+9. FastAPI backend development.
+10. Streamlit frontend development.
+11. Prompt engineering.
+12. Structured logging.
+13. Exception handling.
+14. Project documentation.
 
 ## Out of Scope
 
-The following features are excluded from Version 1.0.0:
+The following features are planned for future releases:
 
 1. User authentication.
 2. Role-based access control.
-3. Database-backed chat history.
+3. Chat history persistence.
 4. PDF upload through the web interface.
 5. Multi-user collaboration.
-6. Mobile application.
-7. Multi-language document support.
+6. Multi-language document support.
+7. Docker deployment.
+8. Cloud deployment.
+9. CI/CD pipeline.
+10. Monitoring and observability.
 
 ---
 
 # 7. Key Features
 
-The application provides the following features:
+The application currently provides:
 
-1. Intelligent question answering over PDF documents.
+1. PDF document indexing.
 2. Semantic document retrieval.
-3. Context-aware response generation.
-4. Interactive Streamlit user interface.
-5. RESTful backend API.
-6. Modular application architecture.
-7. Cloud deployment support.
-8. Secure configuration using environment variables.
-9. Reproducible dependency management using uv.
+3. Context-aware question answering.
+4. LangChain-based Retrieval-Augmented Generation pipeline.
+5. FastAPI REST APIs.
+6. Streamlit web interface.
+7. Hugging Face hosted language model integration.
+8. FAISS vector database.
+9. Secure configuration using environment variables.
+10. Modular service-based architecture.
 
 ---
 
@@ -165,15 +170,13 @@ The application provides the following features:
 
 The application is intended for:
 
-1. Business professionals.
-2. Researchers.
-3. Students.
-4. Data analysts.
-5. Technical teams.
-6. Knowledge workers.
-7. Organizations managing large PDF repositories.
-
-The primary deployment target is users located in the United States.
+- Researchers
+- Business professionals
+- Analysts
+- Engineers
+- Students
+- Knowledge workers
+- Organizations managing document collections
 
 ---
 
@@ -181,88 +184,77 @@ The primary deployment target is users located in the United States.
 
 | Layer | Technology |
 |---------|------------|
-| Programming Language | Python 3.11 |
+| Programming Language | Python 3.11+ |
+| LLM Orchestration | LangChain |
 | Backend Framework | FastAPI |
 | Frontend Framework | Streamlit |
-| AI Framework | LangChain |
-| Embedding Model | sentence-transformers/all-mpnet-base-v2 |
+| Embedding Model | Hugging Face (`sentence-transformers/all-mpnet-base-v2`) |
+| Large Language Model | Hugging Face Hosted Inference API |
 | Vector Database | FAISS |
-| Large Language Model | Hugging Face Hosted Models |
+| Configuration Management | Pydantic Settings |
+| Data Validation | Pydantic |
+| Logging | Python Logging |
+| Version Control | Git & GitHub |
 | Dependency Management | uv |
-| Containerization | Docker |
-| Version Control | Git |
-| Repository Hosting | GitHub |
-| Backend Hosting | Render |
-| Frontend Hosting | Streamlit Community Cloud |
 
 ---
 
 # 10. High-Level Workflow
 
-The application follows the workflow below.
-
 ```
-PDF Documents
-      │
-      ▼
-Document Loader
-      │
-      ▼
-Text Splitter
-      │
-      ▼
-Embedding Model
-      │
-      ▼
-FAISS Vector Database
-      │
-      ▼
-Retriever
-      │
-      ▼
-Large Language Model
-      │
-      ▼
-FastAPI Backend
-      │
-      ▼
-Streamlit Frontend
-      │
-      ▼
-End User
+                    User
+                      │
+                      ▼
+             Streamlit Frontend
+                      │
+                      ▼
+               FastAPI Backend
+                      │
+                      ▼
+         LangChain RAG Pipeline
+          ┌───────────┴───────────┐
+          ▼                       ▼
+   LangChain Retriever     Prompt Template
+          │                       │
+          ▼                       │
+    FAISS Vector Store            │
+          │                       │
+          ▼                       ▼
+ Hugging Face Embeddings   Hugging Face Hosted LLM
+          │                       │
+          └───────────┬───────────┘
+                      ▼
+               Generated Answer
 ```
 
 ---
 
 # 11. Project Deliverables
 
-The project will deliver the following components:
+The current project delivers:
 
-1. FastAPI backend application.
-2. Streamlit frontend application.
-3. Retrieval-Augmented Generation pipeline.
-4. FAISS vector database.
-5. Hugging Face LLM integration.
-6. Docker configuration.
-7. Render deployment configuration.
-8. Streamlit Community Cloud deployment.
-9. Complete project documentation.
-10. Source code repository.
+- FastAPI backend application.
+- Streamlit frontend application.
+- LangChain Retrieval-Augmented Generation pipeline.
+- FAISS vector database.
+- Hugging Face hosted LLM integration.
+- Verification scripts.
+- Technical documentation.
+- Source code repository.
 
 ---
 
 # 12. Expected Benefits
 
-The completed solution will provide the following benefits:
+The completed solution provides:
 
-1. Faster access to information.
-2. Improved document search accuracy.
-3. Enhanced user productivity.
+1. Faster access to document-based information.
+2. Improved search accuracy through semantic retrieval.
+3. Natural language interaction with documents.
 4. Reduced manual effort in locating information.
-5. Improved user experience through natural language interaction.
-6. Modular and maintainable software architecture.
-7. Cloud-native deployment capability.
-8. Simplified future enhancements and maintenance.
+5. Modular and maintainable software architecture.
+6. Easy extension for future features.
+7. Reusable components for future AI applications.
 
 ---
 
@@ -270,36 +262,36 @@ The completed solution will provide the following benefits:
 
 The project will be considered successful when:
 
-1. Users can access the application through a web browser.
-2. PDF documents can be processed successfully.
-3. Questions can be answered using document context.
-4. Responses are generated accurately and consistently.
-5. Backend and frontend operate reliably in the cloud.
-6. Deployment is fully reproducible.
-7. Documentation is complete and up to date.
+1. PDF documents can be indexed successfully.
+2. Relevant document context is retrieved accurately.
+3. Questions are answered using retrieved document content.
+4. FastAPI endpoints operate correctly.
+5. The Streamlit interface communicates successfully with the backend.
+6. The application maintains a modular and maintainable architecture.
+7. Project documentation is complete and up to date.
 
 ---
 
 # 14. Future Enhancements
 
-Potential enhancements beyond Version 1.0.0 include:
+Potential future improvements include:
 
 1. User authentication and authorization.
-2. Chat history persistence.
-3. Multi-document collection management.
-4. Web-based PDF upload.
-5. Support for additional document formats.
-6. Multi-language support.
-7. Hybrid search capabilities.
-8. Advanced monitoring and analytics.
-9. Scalable vector databases.
-10. Enterprise security integration.
+2. Conversation history.
+3. Metadata filtering.
+4. Hybrid search.
+5. LangGraph-based agent workflows.
+6. Support for multiple vector databases.
+7. Docker containerization.
+8. Cloud deployment.
+9. CI/CD pipeline.
+10. Monitoring and observability.
 
 ---
 
 # 15. Related Documents
 
-This document should be read in conjunction with the following project documents:
+This document should be read together with:
 
 - 00_Project_Charter.md
 - 02_System_Architecture.md

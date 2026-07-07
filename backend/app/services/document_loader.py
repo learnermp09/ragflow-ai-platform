@@ -6,6 +6,7 @@ configured document directory. It serves as the entry point for the
 document processing pipeline.
 """
 
+import sys
 from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFDirectoryLoader
@@ -22,43 +23,58 @@ class DocumentLoader:
     def __init__(self) -> None:
         """Initialize the document loader."""
 
-        self.document_directory = Path(settings.document.pdf_directory)
+        self.document_directory = Path(
+            settings.document.pdf_directory
+        )
 
     def load_documents(self) -> list[Document]:
         """
         Load PDF documents from the configured directory.
 
-        Returns:
-            list[Document]: Loaded LangChain documents.
+        Returns
+        -------
+        list[Document]
+            Loaded LangChain documents.
 
-        Raises:
-            RAGFlowException: If document loading fails.
+        Raises
+        ------
+        RAGFlowException
+            If document loading fails.
         """
 
         try:
             logger.info("Starting document loading.")
 
-            if not self.document_directory.exists():
+            if not self.document_directory.is_dir():
                 raise FileNotFoundError(
-                    f"Directory not found: {self.document_directory}"
+                    f"Directory not found: "
+                    f"{self.document_directory}"
                 )
 
-            loader = PyPDFDirectoryLoader(str(self.document_directory))
+            loader = PyPDFDirectoryLoader(
+                str(self.document_directory)
+            )
 
             documents = loader.load()
 
             if not documents:
                 raise ValueError(
-                    f"No PDF documents found in {self.document_directory}"
+                    f"No PDF documents found in "
+                    f"{self.document_directory}"
                 )
 
             logger.info(
-                "Successfully loaded %d document(s).",
+                "Loaded %d document(s) from '%s'.",
                 len(documents),
+                self.document_directory,
             )
 
             return documents
 
         except Exception as error:
             logger.exception("Document loading failed.")
-            raise RAGFlowException(error) from error
+
+            raise RAGFlowException(
+                error,
+                sys,
+            ) from error

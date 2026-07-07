@@ -8,7 +8,7 @@
 | **Sprint Version** | 1.0.0 |
 | **Sprint Status** | Completed |
 | **Prepared By** | Mrityunjay P. |
-| **Role** | AI Engineer |
+| **Role** | Freelance AI engineering engagement |
 | **Sprint Duration** | Day 01 |
 | **Completion Date** | 03 July 2026 |
 
